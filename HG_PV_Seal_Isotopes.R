@@ -35,7 +35,10 @@ plotSiberObject(siberdat,
                 bty = "L",
                 iso.order = c(1,2),
                 xlab = expression({delta}^13*C~'\u2030'),
-                ylab = expression({delta}^15*N~'\u2030')
+                ylab = expression({delta}^15*N~'\u2030'),
+                legend=legend('topright',inset=0.025,
+                       legend=c('Grey Seal','Harbor Seal','RBC','Plasma'),
+                       col=c('red','black','grey50','grey50'),pch=c(4,4,17,19),pt.cex=2))
 )
 
 group.ML <- groupMetricsML(siberdat)%>%
@@ -115,19 +118,9 @@ for(i in 1:nrow(fs)){
 }
 
 write.csv(fs,file='fish.samples.csv')
-fs<-read.csv("C:/Users/zaahi/Documents/fish.samples.csv")%>%
-  mutate(Scientific_Name=case_when(
-    fs$Spp == 'Common Dab' ~ 'Limanda limanda',
-    fs$Spp == 'Squid' ~ 'Decapodiformes',
-    fs$Spp == 'Argentine' ~ 'Argentina sphyraena',
-    fs$Spp == 'Cod' ~ 'Gadus Morhua',
-    fs$Spp == 'Long Rough Dab' ~ 'Hippoglossoides platessoides',
-    fs$Spp == 'Grey Gurnard' ~ 'Eutrigla gurnardus',
-    fs$Spp == 'Plaice' ~ 'Pleuronectes platessa',
-    fs$Spp == 'Lemon Sole' ~ 'Microstomus kitt',
-    fs$Spp == 'Norway Pout' ~ 'Trisopterus esmarkii',
-    fs$Spp == 'Red Gurnard' ~ 'Chelidonichthys cuculus',
-    fs$Spp == 'Bluemouth' ~ 'Helicolenus dactylopterus',
-    fs$Spp == 'Blue Whiting' ~ 'Micromesistius poutassou',
-    fs$Spp == 'Poor Cod' ~ 'Trisopterus minutus',
+fs<-read.csv("C:/Users/zaahi/Documents/fish.samples.csv")#%>%
+
+mutate(fs,Sample.Name=case_when(
+  fs$Lipid.Extracted. == T ~ fs$Sample.Name,
+  fs$Lipid.Extracted. == F ~ str_sub(fs$Sample.Name, 1, -3)
   ))
