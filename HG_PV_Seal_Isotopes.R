@@ -106,4 +106,28 @@ ggplot(sidat[sidat$Type=='RBC',])+
   theme_minimal()
 
 
+fs<-matrix(nrow=70,ncol=7)
+colnames(fs)<-c('Sample Name','Lipid Extracted?','Spp','Tow','Replicate','Plate','Well')
+fs<-data.frame(fs)
+for(i in 1:nrow(fs)){
+  fs$Sample.Name[i]<-paste('FS',i,'LE',sep='')
+  fs$Lipid.Extracted.<-TRUE
+}
 
+write.csv(fs,file='fish.samples.csv')
+fs<-read.csv("C:/Users/zaahi/Documents/fish.samples.csv")%>%
+  mutate(Scientific_Name=case_when(
+    fs$Spp == 'Common Dab' ~ 'Limanda limanda',
+    fs$Spp == 'Squid' ~ 'Decapodiformes',
+    fs$Spp == 'Argentine' ~ 'Argentina sphyraena',
+    fs$Spp == 'Cod' ~ 'Gadus Morhua',
+    fs$Spp == 'Long Rough Dab' ~ 'Hippoglossoides platessoides',
+    fs$Spp == 'Grey Gurnard' ~ 'Eutrigla gurnardus',
+    fs$Spp == 'Plaice' ~ 'Pleuronectes platessa',
+    fs$Spp == 'Lemon ole' ~ 'Microstomus kitt',
+    fs$Spp == 'Norway Pout' ~ 'Trisopterus esmarkii',
+    fs$Spp == 'Red Gurnard' ~ 'Chelidonichthys cuculus',
+    fs$Spp == 'Bluemouth' ~ 'Helicolenus dactylopterus',
+    fs$Spp == 'Blue Whiting' ~ 'Micromesistius poutassou',
+    fs$Spp == 'Poor Cod' ~ 'Trisopterus minutus',
+  ))
