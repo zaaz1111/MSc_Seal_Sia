@@ -105,7 +105,7 @@ ggplot(sidat[sidat$Type=='RBC',])+
   ylab(expression({delta}^15*N~'\u2030'))+
   theme_minimal()
 
-
+###Processing fish sampling data
 fs<-matrix(nrow=70,ncol=7)
 colnames(fs)<-c('Sample Name','Lipid Extracted?','Spp','Tow','Replicate','Plate','Well')
 fs<-data.frame(fs)
@@ -124,7 +124,7 @@ fs<-read.csv("C:/Users/zaahi/Documents/fish.samples.csv")%>%
     fs$Spp == 'Long Rough Dab' ~ 'Hippoglossoides platessoides',
     fs$Spp == 'Grey Gurnard' ~ 'Eutrigla gurnardus',
     fs$Spp == 'Plaice' ~ 'Pleuronectes platessa',
-    fs$Spp == 'Lemon ole' ~ 'Microstomus kitt',
+    fs$Spp == 'Lemon Sole' ~ 'Microstomus kitt',
     fs$Spp == 'Norway Pout' ~ 'Trisopterus esmarkii',
     fs$Spp == 'Red Gurnard' ~ 'Chelidonichthys cuculus',
     fs$Spp == 'Bluemouth' ~ 'Helicolenus dactylopterus',
