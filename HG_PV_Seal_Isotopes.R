@@ -22,6 +22,8 @@ colnames(siberdat)<-c("iso2", "iso1", "community", "group")
 siberdat<-siberdat[, c(2,1,4,3)]%>%
   createSiberObject()
 
+
+
 community.hulls.args <- list(col = 1, lty = 1, lwd = 1)
 group.ellipses.args  <- list(n = 100, p.interval = 0.95, lty = 1, lwd = 2)
 group.hulls.args     <- list(lty = 2, col = "grey20")
@@ -39,7 +41,6 @@ plotSiberObject(siberdat,
                 legend=legend('topright',inset=0.025,
                        legend=c('Grey Seal','Harbor Seal','RBC','Plasma'),
                        col=c('red','black','grey50','grey50'),pch=c(4,4,17,19),pt.cex=2))
-)
 
 group.ML <- groupMetricsML(siberdat)%>%
   data.frame()
@@ -93,6 +94,9 @@ ggplot(sidat[sidat$Type=='Plasma',])+
   xlab('δ13C')+
   ylab('δ15N')+
   theme_minimal()
+
+
+
 
 #Exploratory plotting for RBCs
 ggplot(sidat[sidat$Type=='RBC',])+
