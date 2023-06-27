@@ -118,9 +118,8 @@ for(i in 1:nrow(fs)){
 }
 
 write.csv(fs,file='fish.samples.csv')
-fs<-read.csv("C:/Users/zaahi/Documents/fish.samples.csv")#%>%
-
-mutate(fs,Sample.Name=case_when(
+fs<-read.csv("C:/Users/zaahi/Documents/fish.samples.csv")%>%
+  mutate(fs,Sample.Name=case_when(
   fs$Lipid.Extracted. == T ~ fs$Sample.Name,
   fs$Lipid.Extracted. == F ~ str_sub(fs$Sample.Name, 1, -3)
   ))
