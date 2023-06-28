@@ -17,9 +17,9 @@ sidat<-mutate(sidat,Species=case_when(
   subset(sidat$C.N.ratio>2)
 
 ##Doing SIBER stuff from CRAn
-siberdat<-subset(sidat,select=c("δ15N..air","δ13C...V.PDB",'Species','Type'))
-colnames(siberdat)<-c("iso2", "iso1", "community", "group")
-siberdat<-siberdat[, c(2,1,4,3)]%>%
+siberdata<-subset(sidat,select=c("δ15N..air","δ13C...V.PDB",'Species','Type'))
+colnames(siberdata)<-c("iso2", "iso1", "community", "group")
+siberdat<-siberdata[, c(2,1,4,3)]%>%
   createSiberObject()
 
 
@@ -75,11 +75,19 @@ points(1:ncol(SEA.B), group.ML[3,], col="red", pch = "x", lwd = 2)
 
 
 #plot the whole thing
-ggplot(sidat)+
-  geom_point(aes(δ13C...V.PDB,δ15N..air,color=Species,shape=Type))+
-  xlab('δ13C')+
-  ylab('δ15N')+
-  theme_minimal()
+ggplot(data = siberdata, aes(iso1, iso2)) +
+  geom_point(aes(color = factor(group):factor(community)), size = 2)+
+  ylab(expression(paste(delta^{15}, "N (\u2030)")))+
+  xlab(expression(paste(delta^{13}, "C (\u2030)"))) + 
+  theme(text = element_text(size=15))  +# Alternatively, facet wrap it
+  facet_wrap(~factor(group):factor(community)) + #Add the ellipses
+  geom_polygon(data = ellipse_df,
+               mapping = aes(iso1, iso2,
+                             group = rep,
+                             color = factor(group):factor(community),
+                             fill = NULL),
+               fill = NA,
+               alpha = 0.2)
 
 #Exploratory plotting for Plasma
 ggplot(sidat[sidat$Type=='Plasma',])+
