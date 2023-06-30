@@ -1,10 +1,10 @@
 ##Use librarian or pacman on startup to manage all packages 
 ##Figure out how to use a package on startup
 library(librarian)
-shelf(MixSIAR,SIBER,here,tidyverse,ggplot2,rjags)
+shelf(MixSIAR,SIBER,here,tidyverse,ggplot2,rjags,ellipse)
 
 #Read in the data
-sidat<-read.csv(here('Processed Data/Exploratory_plate_1_Data.csv'),head=T)
+sidat<-read.csv(here('Processed Data/Seal_Data.csv'),head=T)
 
 #Mutate it to add species name and sample type, and pipe to subset out error rows
 sidat<-mutate(sidat,Species=case_when(
@@ -12,57 +12,45 @@ sidat<-mutate(sidat,Species=case_when(
          substr(sidat$name, 1, 1) == '0' ~ 'Harbor'),
          Type=case_when(
            substr(sidat$name, 6, 6) == 'R' ~ 'RBC',
-           substr(sidat$name, 6, 6) == 'P' ~ 'Plasma'
+           substr(sidat$name, 6, 6) == 'P' ~ 'Plasma',
+           substr(sidat$name, 5, 5) == 'P' ~ 'Plasma'
          ))%>%
   subset(sidat$C.N.ratio>2)
 
-##Doing SIBER stuff from CRAn
-siberdata<-subset(sidat,select=c("δ15N..air","δ13C...V.PDB",'Species','Type'))
-colnames(siberdata)<-c("iso2", "iso1", "community", "group")
-siberdat<-siberdata[, c(2,1,4,3)]%>%
+#Transform the data to SIBERdat, data that matches SIBER's expected format:
+siberdat<-subset(sidat, select = c(δ15N..air, δ13C...V.PDB, Species, Type))
+colnames(siberdat)<-c('iso2','iso1','group','community')
+siberdat<-siberdat[,c(2,1,3,4)]%>%
   createSiberObject()
 
+##Redoing the SIBER stuff with the ggplot syntax from https://github.com/AndrewLJackson/SIBER/blob/306aa9dc922b9c73dc8223f423e667f11fad844a/vignettes/Plot-posterior-ellipses.R
+#Summary stats (TA, SEA and SEAc) for each group
+group.ML <- groupMetricsML(siberdat)
 
-
-community.hulls.args <- list(col = 1, lty = 1, lwd = 1)
-group.ellipses.args  <- list(n = 100, p.interval = 0.95, lty = 1, lwd = 2)
-group.hulls.args     <- list(lty = 2, col = "grey20")
-
-
-plotSiberObject(siberdat,
-                ax.pad = 2, 
-                hulls = F, community.hulls.args = community.hulls.args, 
-                ellipses = T, group.ellipses.args = group.ellipses.args,
-                group.hulls = T, group.hulls.args = group.hulls.args,
-                bty = "L",
-                iso.order = c(1,2),
-                xlab = expression({delta}^13*C~'\u2030'),
-                ylab = expression({delta}^15*N~'\u2030'),
-                legend=legend('topright',inset=0.025,
-                       legend=c('Grey Seal','Harbor Seal','RBC','Plasma'),
-                       col=c('red','black','grey50','grey50'),pch=c(4,4,17,19),pt.cex=2))
-
-group.ML <- groupMetricsML(siberdat)%>%
-  data.frame()
-print(group.ML)
-
-###Starting a bayesian model?!?!?
-parms<-list()
-parms$n.iter<-2*10^4
-parms$n.burnin<-1*10^3
+# options for running jags
+parms <- list()
+parms$n.iter <- 2 * 10^4   # number of iterations to run the model for
+parms$n.burnin <- 1 * 10^3 # discard the first set of values
 parms$n.thin <- 10     # thin the posterior by this many
-parms$n.chains <- 2 
+parms$n.chains <- 2        # run this many chains
 
+# define the priors
 priors <- list()
 priors$R <- 1 * diag(2)
 priors$k <- 2
 priors$tau.mu <- 1.0E-3
 
-#Fitting the ellipses using the specified above parameters (This uses JAGS, something I am still learning)
+# fit the ellipses which uses an Inverse Wishart prior
+# on the covariance matrix Sigma, and a vague normal prior on the 
+# means. Fitting is via the JAGS method.
 ellipses.posterior <- siberMVN(siberdat, parms, priors)
 
+
+# The posterior estimates of the ellipses for each group can be used to
+# calculate the SEA.B for each group.
 SEA.B <- siberEllipses(ellipses.posterior)
 
+# I think (?) this is the distribution of ellipse areas from the MCMCs??
 siberDensityPlot(SEA.B, xticklabels = colnames(group.ML), 
                  xlab = c("Community | Group"),
                  ylab = expression("Standard Ellipse Area " ('\u2030' ^2) ),
@@ -70,68 +58,94 @@ siberDensityPlot(SEA.B, xticklabels = colnames(group.ML),
                  las = 1,
                  main = "SIBER ellipses on each group"
 )
-points(1:ncol(SEA.B), group.ML[3,], col="red", pch = "x", lwd = 2)
 
+# how many of the posterior draws do you want?
+n.posts <- 10
 
+# decide how big an ellipse you want to draw
+p.ell <- 0.95
 
-#plot the whole thing
-ggplot(data = siberdata, aes(iso1, iso2)) +
-  geom_point(aes(color = factor(group):factor(community)), size = 2)+
+# a list to store the results
+all_ellipses <- list()
+
+# loop over groups
+for (i in 1:length(ellipses.posterior)){
+  
+  # a dummy variable to build in the loop
+  ell <- NULL
+  post.id <- NULL
+  
+  for ( j in 1:n.posts){
+    
+    # covariance matrix
+    Sigma  <- matrix(ellipses.posterior[[i]][j,1:4], 2, 2)
+    
+    # mean
+    mu     <- ellipses.posterior[[i]][j,5:6]
+    
+    # ellipse points
+    
+    out <- ellipse::ellipse(Sigma, centre = mu , level = p.ell)
+    
+    
+    ell <- rbind(ell, out)
+    post.id <- c(post.id, rep(j, nrow(out)))
+    
+  }
+  ell <- as.data.frame(ell)
+  ell$rep <- post.id
+  all_ellipses[[i]] <- ell
+}
+
+ellipse_df <- bind_rows(all_ellipses, .id = "id")
+
+# extract them from the ellipses.posterior list
+group_comm_names <- names(ellipses.posterior)[as.numeric(ellipse_df$id)]
+
+split_group_comm <- matrix(unlist(strsplit(group_comm_names, "[.]")),
+                           nrow(ellipse_df), 2, byrow = TRUE)
+
+ellipse_df$community <- split_group_comm[,1]
+ellipse_df$group     <- split_group_comm[,2]
+
+ellipse_df <- dplyr::rename(ellipse_df, iso1 = x, iso2 = y)
+
+#Begin plotting the SIBER data with each ellipse drawn
+ggplot(data = sidat, aes(δ13C...V.PDB, δ15N..air)) +
+  geom_point(aes(color = factor(Species):factor(Type)), size = 2)+
   ylab(expression(paste(delta^{15}, "N (\u2030)")))+
   xlab(expression(paste(delta^{13}, "C (\u2030)"))) + 
-  theme(text = element_text(size=15))  +# Alternatively, facet wrap it
-  facet_wrap(~factor(group):factor(community)) + #Add the ellipses
+  theme(text = element_text(size=15))+
+  theme_minimal() + #Optionally, facet wrap them
+  #facet_wrap(~factor(Species):factor(Type))+
   geom_polygon(data = ellipse_df,
                mapping = aes(iso1, iso2,
-                             group = rep,
                              color = factor(group):factor(community),
                              fill = NULL),
                fill = NA,
-               alpha = 0.2)
+               alpha = 0.2)+
+  guides(color=guide_legend(title='Species:Sample Type'))
+  
 
-#Exploratory plotting for Plasma
-ggplot(sidat[sidat$Type=='Plasma',])+
-  geom_point(aes(δ13C...V.PDB,δ15N..air,color=Species))+
-  stat_ellipse(aes(δ13C...V.PDB,δ15N..air,group = interaction(Species), 
+#Now do it but make it look pretty (These ellispes are normally distributed and thus not a 100% 
+#reflection of our ellipses, but they'll give us a nice idea and look spicyyyyyy)
+#This manipulates ellipse size
+p.ell <- 0.95
+
+ggplot(data = sidat, 
+       aes(x = δ13C...V.PDB, 
+           y = δ15N..air)) + 
+  geom_point(aes(color = Species, shape = Type), size = 3,alpha=0.75) +
+  ylab(expression(paste(delta^{15}, "N (\u2030)"))) +
+  xlab(expression(paste(delta^{13}, "C (\u2030)"))) + 
+  theme(text = element_text(size=16))+
+  stat_ellipse(aes(group = interaction(Species, Type), 
                    fill = Species, 
                    color = Species), 
                alpha = 0.25, 
-               level = 0.95,
+               level = p.ell,
                type = "norm",
-               geom = "polygon") + 
-  xlab('δ13C')+
-  ylab('δ15N')+
+               geom = "polygon")+
   theme_minimal()
 
 
-
-
-#Exploratory plotting for RBCs
-ggplot(sidat[sidat$Type=='RBC',])+
-  geom_point(aes(δ13C...V.PDB,δ15N..air,color=Species))+
-  stat_ellipse(aes(δ13C...V.PDB,δ15N..air,group = interaction(Species), 
-                   fill = Species, 
-                   color = Species), 
-               alpha = 0.25, 
-               level = 0.95,
-               type = "norm",
-               geom = "polygon") + 
-  xlab(expression({delta}^13*C~'\u2030'))+
-  ylab(expression({delta}^15*N~'\u2030'))+
-  theme_minimal()
-
-###Processing fish sampling data
-fs<-matrix(nrow=70,ncol=7)
-colnames(fs)<-c('Sample Name','Lipid Extracted?','Spp','Tow','Replicate','Plate','Well')
-fs<-data.frame(fs)
-for(i in 1:nrow(fs)){
-  fs$Sample.Name[i]<-paste('FS',i,'LE',sep='')
-  fs$Lipid.Extracted.<-TRUE
-}
-
-write.csv(fs,file='fish.samples.csv')
-fs<-read.csv("C:/Users/zaahi/Documents/fish.samples.csv")%>%
-  mutate(fs,Sample.Name=case_when(
-  fs$Lipid.Extracted. == T ~ fs$Sample.Name,
-  fs$Lipid.Extracted. == F ~ str_sub(fs$Sample.Name, 1, -3)
-  ))
