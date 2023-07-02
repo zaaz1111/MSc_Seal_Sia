@@ -17,6 +17,10 @@ sidat<-mutate(sidat,Species=case_when(
          ))%>%
   subset(sidat$C.N.ratio>2)
 
+#Make subsets for Plasma and RBC
+sidatP<-subset(sidat[sidat$Type=='Plasma',])
+sidatRBC<-subset(sidat[sidat$Type=='RBC',])
+
 #Transform the data to SIBERdat, data that matches SIBER's expected format:
 siberdat<-subset(sidat, select = c(δ15N..air, δ13C...V.PDB, Species, Type))
 colnames(siberdat)<-c('iso2','iso1','group','community')
@@ -148,4 +152,12 @@ ggplot(data = sidat,
                geom = "polygon")+
   theme_minimal()
 
+##ANOVA the d13C and d15N
+onewayC_P<-aov(δ13C...V.PDB~Species,data=sidatP)
+
+onewayN_P<-aov(δ15N..air~Species,data=sidatP)
+
+onewayC_RBC<-aov(δ13C...V.PDB~Species,data=sidatRBC)
+
+onewayN_P<-aov(δ15N..air~Species,data=sidatP)
 
