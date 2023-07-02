@@ -1,141 +1,141 @@
-"","Sample.Name","Lipid.Extracted.","Spp","Scientific.Name","Tow","Replicate","Plate","Well","Mass"
-"1","FS10LE",TRUE,"Grey Gurnard","Eutrigla gurnardus",19,"A?","2X","C1",0.796
-"2","FS11LE",TRUE,"Grey Gurnard","Eutrigla gurnardus",19,"B?","2X","C2",0.772
-"3","FS12LE",TRUE,"Common Dab","Limanda limanda",41,"B","2X","B3",0.827
-"4","FS13LE",TRUE,"Long Rough Dab","Hippoglossoides platessoides",33,"A","2X","B1",0.816
-"5","FS14LE",TRUE,"Long Rough Dab","Hippoglossoides platessoides",33,"C","2X","C4",0.76
-"6","FS15LE",TRUE,"Squid","Decapodiformes",41,"A","2X","C3",0.797
-"7","FS16LE",TRUE,"Squid","Decapodiformes",41,"B","2X","A12",0.769
-"8","FS17LE",TRUE,"Plaice","Pleuronectes platessa",19,"B","2X","D5",0.752
-"9","FS18LE",TRUE,"Plaice","Pleuronectes platessa",19,"C","2X","D6",0.841
-"10","FS19LE",TRUE,"Plaice","Pleuronectes platessa",43,"B","2X","D7",0.793
-"11","FS1LE",TRUE,"Common Dab","Limanda limanda",41,"C","2X","B10",0.835
-"12","FS20LE",TRUE,"Lemon Sole","Microstomus kitt",19,"C","2X","D11",0.769
-"13","FS21LE",TRUE,"Norway Pout","Trisopterus esmarkii",33,"C","2X","D12",0.846
-"14","FS22LE",TRUE,"Red Gurnard","Chelidonichthys cuculus",19,"B","2X","E1",0.757
-"15","FS23LE",TRUE,"Bluemouth","Helicolenus dactylopterus",33,"A","2X","E2",0.767
-"16","FS24LE",TRUE,"Bluemouth","Helicolenus dactylopterus",33,"C","2X","E3",0.827
-"17","FS25LE",TRUE,"Blue Whiting","Micromesistius poutassou",33,"C","2X","E4",0.791
-"18","FS26LE",TRUE,"Bluemouth","Helicolenus dactylopterus",33,"B","2X","E5",0.752
-"19","FS27LE",TRUE,"Plaice","Pleuronectes platessa",19,"A","2X","E6",0.831
-"20","FS28LE",TRUE,"Red Gurnard","Chelidonichthys cuculus",19,"A","2X","E7",0.773
-"21","FS29LE",TRUE,"Blue Whiting","Micromesistius poutassou",33,"B","2X","E8",0.812
-"22","FS2LE",TRUE,"Squid","Decapodiformes",41,"C","2X","B2",0.81
-"23","FS30LE",TRUE,"Blue Whiting","Micromesistius poutassou",33,"A","2X","E12",0.775
-"24","FS31LE",TRUE,"Norway Pout","Trisopterus esmarkii",33,"B","2X","F1",0.791
-"25","FS32LE",TRUE,"Lemon Sole","Microstomus kitt",19,"B","2X","F2",0.786
-"26","FS33LE",TRUE,"Plaice","Pleuronectes platessa",43,"C","","",NA
-"27","FS34LE",TRUE,"Lemon Sole","Microstomus kitt",19,"A","","",NA
-"28","FS35LE",TRUE,"Red Gurnard","Chelidonichthys cuculus",19,"C","","",NA
-"29","FS36LE",TRUE,"Plaice","Pleuronectes platessa",19,"A","","",NA
-"30","FS37LE",TRUE,"Common Dab","Limanda limanda",19,"C","","",NA
-"31","FS38LE",TRUE,"Grey Gurnard","Eutrigla gurnardus",38,"B","","",NA
-"32","FS39LE",TRUE,"Grey Gurnard","Eutrigla gurnardus",38,"C","","",NA
-"33","FS3LE",TRUE,"Argentine","Argentina sphyraena",33,"C","2X","B12",0.76
-"34","FS40LE",TRUE,"Grey Gurnard","Eutrigla gurnardus",38,"A","","",NA
-"35","FS41LE",TRUE,"Common Dab","Limanda limanda",43,"A","","",NA
-"36","FS42LE",TRUE,"Common Dab","Limanda limanda",38,"B","","",NA
-"37","FS43LE",TRUE,"Norway Pout","Trisopterus esmarkii",26,"C","","",NA
-"38","FS44LE",TRUE,"Common Dab","Limanda limanda",19,"B","","",NA
-"39","FS45LE",TRUE,"Common Dab","Limanda limanda",38,"A","","",NA
-"40","FS46LE",TRUE,"Common Dab","Limanda limanda",19,"A","","",NA
-"41","FS47LE",TRUE,"Argentine","Argentina sphyraena",38,"A","","",NA
-"42","FS48LE",TRUE,"Argentine","Argentina sphyraena",38,"C","","",NA
-"43","FS49LE",TRUE,"Poor Cod","Trisopterus minutus",38,"C","","",NA
-"44","FS4LE",TRUE,"Argentine","Argentina sphyraena",33,"B","2X","B9",0.768
-"45","FS50LE",TRUE,"Common Dab","Limanda limanda",43,"C","","",NA
-"46","FS51LE",TRUE,"Poor Cod","Trisopterus minutus",38,"B","","",NA
-"47","FS52LE",TRUE,"Cod","Gadus Morhua",19,"A+","","",NA
-"48","FS53LE",TRUE,"Common Dab","Limanda limanda",38,"C","","",NA
-"49","FS54LE",TRUE,"Norway Pout","Trisopterus esmarkii",26,"A","","",NA
-"50","FS55LE",TRUE,"Poor Cod","Trisopterus minutus",38,"A","","",NA
-"51","FS56LE",TRUE,"Common Dab","Limanda limanda",43,"B","","",NA
-"52","FS57LE",TRUE,"Cod","Gadus Morhua",19,"B","","",NA
-"53","FS58LE",TRUE,"Common Dab","Limanda limanda",33,"A","","",NA
-"54","FS59LE",TRUE,"Argentine","Argentina sphyraena",38,"B","","",NA
-"55","FS5LE",TRUE,"Cod","Gadus Morhua",19,"A","2X","C6",0.779
-"56","FS60LE",TRUE,"Grey Gurnard","Eutrigla gurnardus",43,"A","","",NA
-"57","FS61LE",TRUE,"Cod","Gadus Morhua",19,"C","","",NA
-"58","FS62LE",TRUE,"Common Dab","Limanda limanda",33,"C","","",NA
-"59","FS63LE",TRUE,"Common Dab","Limanda limanda",33,"B","","",NA
-"60","FS64LE",TRUE,"Grey Gurnard","Eutrigla gurnardus",43,"B","","",NA
-"61","FS65LE",TRUE,"Grey Gurnard","Eutrigla gurnardus",43,"C","","",NA
-"62","FS66LE",TRUE,"Norway Pout","Trisopterus esmarkii",26,"B","","",NA
-"63","FS67LE",TRUE,"Norway Pout","Trisopterus esmarkii",33,"A","","",NA
-"64","FS68LE",TRUE,"Squid","Decapodiformes",38,"A","","",NA
-"65","FS69LE",TRUE,"Squid","Decapodiformes",38,"B","","",NA
-"66","FS6LE",TRUE,"Argentine","Argentina sphyraena",33,"A","2X","B5",0.835
-"67","FS70LE",TRUE,"Squid","Decapodiformes",38,"C","","",NA
-"68","FS7LE",TRUE,"Long Rough Dab","Hippoglossoides platessoides",33,"B","2X","B11",0.758
-"69","FS8LE",TRUE,"Common Dab","Limanda limanda",41,"A","2X","C5",0.766
-"70","FS9LE",TRUE,"Grey Gurnard","Eutrigla gurnardus",19,"C?","2X","B4",0.794
-"71","FS10",FALSE,"Grey Gurnard","Eutrigla gurnardus",19,"A?","","",NA
-"72","FS11",FALSE,"Grey Gurnard","Eutrigla gurnardus",19,"B?","","",NA
-"73","FS12",FALSE,"Common Dab","Limanda limanda",41,"B","","",NA
-"74","FS13",FALSE,"Long Rough Dab","Hippoglossoides platessoides",33,"A","","",NA
-"75","FS14",FALSE,"Long Rough Dab","Hippoglossoides platessoides",33,"C","","",NA
-"76","FS15",FALSE,"Squid","Decapodiformes",41,"A","","",NA
-"77","FS16",FALSE,"Squid","Decapodiformes",41,"B","","",NA
-"78","FS17",FALSE,"Plaice","Pleuronectes platessa",19,"B","","",NA
-"79","FS18",FALSE,"Plaice","Pleuronectes platessa",19,"C","","",NA
-"80","FS19",FALSE,"Plaice","Pleuronectes platessa",43,"B","","",NA
-"81","FS1",FALSE,"Common Dab","Limanda limanda",41,"C","","",NA
-"82","FS20",FALSE,"Lemon Sole","Microstomus kitt",19,"C","","",NA
-"83","FS21",FALSE,"Norway Pout","Trisopterus esmarkii",33,"C","","",NA
-"84","FS22",FALSE,"Red Gurnard","Chelidonichthys cuculus",19,"B","","",NA
-"85","FS23",FALSE,"Bluemouth","Helicolenus dactylopterus",33,"A","","",NA
-"86","FS24",FALSE,"Bluemouth","Helicolenus dactylopterus",33,"C","","",NA
-"87","FS25",FALSE,"Blue Whiting","Micromesistius poutassou",33,"C","","",NA
-"88","FS26",FALSE,"Bluemouth","Helicolenus dactylopterus",33,"B","","",NA
-"89","FS27",FALSE,"Plaice","Pleuronectes platessa",19,"A","","",NA
-"90","FS28",FALSE,"Red Gurnard","Chelidonichthys cuculus",19,"A","","",NA
-"91","FS29",FALSE,"Blue Whiting","Micromesistius poutassou",33,"B","","",NA
-"92","FS2",FALSE,"Squid","Decapodiformes",41,"C","","",NA
-"93","FS30",FALSE,"Blue Whiting","Micromesistius poutassou",33,"A","","",NA
-"94","FS31",FALSE,"Norway Pout","Trisopterus esmarkii",33,"B","","",NA
-"95","FS32",FALSE,"Lemon Sole","Microstomus kitt",19,"B","","",NA
-"96","FS33",FALSE,"Plaice","Pleuronectes platessa",43,"C","","",NA
-"97","FS34",FALSE,"Lemon Sole","Microstomus kitt",19,"A","","",NA
-"98","FS35",FALSE,"Red Gurnard","Chelidonichthys cuculus",19,"C","","",NA
-"99","FS36",FALSE,"Plaice","Pleuronectes platessa",19,"A","","",NA
-"100","FS37",FALSE,"Common Dab","Limanda limanda",19,"C","","",NA
-"101","FS38",FALSE,"Grey Gurnard","Eutrigla gurnardus",38,"B","","",NA
-"102","FS39",FALSE,"Grey Gurnard","Eutrigla gurnardus",38,"C","","",NA
-"103","FS3",FALSE,"Argentine","Argentina sphyraena",33,"C","","",NA
-"104","FS40",FALSE,"Grey Gurnard","Eutrigla gurnardus",38,"A","","",NA
-"105","FS41",FALSE,"Common Dab","Limanda limanda",43,"A","","",NA
-"106","FS42",FALSE,"Common Dab","Limanda limanda",38,"B","","",NA
-"107","FS43",FALSE,"Norway Pout","Trisopterus esmarkii",26,"C","","",NA
-"108","FS44",FALSE,"Common Dab","Limanda limanda",19,"B","","",NA
-"109","FS45",FALSE,"Common Dab","Limanda limanda",38,"A","","",NA
-"110","FS46",FALSE,"Common Dab","Limanda limanda",19,"A","","",NA
-"111","FS47",FALSE,"Argentine","Argentina sphyraena",38,"A","","",NA
-"112","FS48",FALSE,"Argentine","Argentina sphyraena",38,"C","","",NA
-"113","FS49",FALSE,"Poor Cod","Trisopterus minutus",38,"C","","",NA
-"114","FS4",FALSE,"Argentine","Argentina sphyraena",33,"B","","",NA
-"115","FS50",FALSE,"Common Dab","Limanda limanda",43,"C","","",NA
-"116","FS51",FALSE,"Poor Cod","Trisopterus minutus",38,"B","","",NA
-"117","FS52",FALSE,"Cod","Gadus Morhua",19,"A+","","",NA
-"118","FS53",FALSE,"Common Dab","Limanda limanda",38,"C","","",NA
-"119","FS54",FALSE,"Norway Pout","Trisopterus esmarkii",26,"A","","",NA
-"120","FS55",FALSE,"Poor Cod","Trisopterus minutus",38,"A","","",NA
-"121","FS56",FALSE,"Common Dab","Limanda limanda",43,"B","","",NA
-"122","FS57",FALSE,"Cod","Gadus Morhua",19,"B","","",NA
-"123","FS58",FALSE,"Common Dab","Limanda limanda",33,"A","","",NA
-"124","FS59",FALSE,"Argentine","Argentina sphyraena",38,"B","","",NA
-"125","FS5",FALSE,"Cod","Gadus Morhua",19,"A","","",NA
-"126","FS60",FALSE,"Grey Gurnard","Eutrigla gurnardus",43,"A","","",NA
-"127","FS61",FALSE,"Cod","Gadus Morhua",19,"C","","",NA
-"128","FS62",FALSE,"Common Dab","Limanda limanda",33,"C","","",NA
-"129","FS63",FALSE,"Common Dab","Limanda limanda",33,"B","","",NA
-"130","FS64",FALSE,"Grey Gurnard","Eutrigla gurnardus",43,"B","","",NA
-"131","FS65",FALSE,"Grey Gurnard","Eutrigla gurnardus",43,"C","","",NA
-"132","FS66",FALSE,"Norway Pout","Trisopterus esmarkii",26,"B","","",NA
-"133","FS67",FALSE,"Norway Pout","Trisopterus esmarkii",33,"A","","",NA
-"134","FS68",FALSE,"Squid","Decapodiformes",38,"A","","",NA
-"135","FS69",FALSE,"Squid","Decapodiformes",38,"B","","",NA
-"136","FS6",FALSE,"Argentine","Argentina sphyraena",33,"A","","",NA
-"137","FS70",FALSE,"Squid","Decapodiformes",38,"C","","",NA
-"138","FS7",FALSE,"Long Rough Dab","Hippoglossoides platessoides",33,"B","","",NA
-"139","FS8",FALSE,"Common Dab","Limanda limanda",41,"A","","",NA
-"140","FS9",FALSE,"Grey Gurnard","Eutrigla gurnardus",19,"C?","","",NA
+,name,Lipid.Extracted.,Spp,Scientific.Name,Tow,Replicate,Plate,Well,Mass
+1,FS10LE,TRUE,Grey Gurnard,Eutrigla gurnardus,19,A?,2X,C1,0.796
+2,FS11LE,TRUE,Grey Gurnard,Eutrigla gurnardus,19,B?,2X,C2,0.772
+3,FS12LE,TRUE,Common Dab,Limanda limanda,41,B,2X,B3,0.827
+4,FS13LE,TRUE,Long Rough Dab,Hippoglossoides platessoides,33,A,2X,B1,0.816
+5,FS14LE,TRUE,Long Rough Dab,Hippoglossoides platessoides,33,C,2X,C4,0.76
+6,FS15LE,TRUE,Squid,Decapodiformes,41,A,2X,C3,0.797
+7,FS16LE,TRUE,Squid,Decapodiformes,41,B,2X,A12,0.769
+8,FS17LE,TRUE,Plaice,Pleuronectes platessa,19,B,2X,D5,0.752
+9,FS18LE,TRUE,Plaice,Pleuronectes platessa,19,C,2X,D6,0.841
+10,FS19LE,TRUE,Plaice,Pleuronectes platessa,43,B,2X,D7,0.793
+11,FS1LE,TRUE,Common Dab,Limanda limanda,41,C,2X,B10,0.835
+12,FS20LE,TRUE,Lemon Sole,Microstomus kitt,19,C,2X,D11,0.769
+13,FS21LE,TRUE,Norway Pout,Trisopterus esmarkii,33,C,2X,D12,0.846
+14,FS22LE,TRUE,Red Gurnard,Chelidonichthys cuculus,19,B,2X,E1,0.757
+15,FS23LE,TRUE,Bluemouth,Helicolenus dactylopterus,33,A,2X,E2,0.767
+16,FS24LE,TRUE,Bluemouth,Helicolenus dactylopterus,33,C,2X,E3,0.827
+17,FS25LE,TRUE,Blue Whiting,Micromesistius poutassou,33,C,2X,E4,0.791
+18,FS26LE,TRUE,Bluemouth,Helicolenus dactylopterus,33,B,2X,E5,0.752
+19,FS27LE,TRUE,Plaice,Pleuronectes platessa,19,A,2X,E6,0.831
+20,FS28LE,TRUE,Red Gurnard,Chelidonichthys cuculus,19,A,2X,E7,0.773
+21,FS29LE,TRUE,Blue Whiting,Micromesistius poutassou,33,B,2X,E8,0.812
+22,FS2LE,TRUE,Squid,Decapodiformes,41,C,2X,B2,0.81
+23,FS30LE,TRUE,Blue Whiting,Micromesistius poutassou,33,A,2X,E12,0.775
+24,FS31LE,TRUE,Norway Pout,Trisopterus esmarkii,33,B,2X,F1,0.791
+25,FS32LE,TRUE,Lemon Sole,Microstomus kitt,19,B,2X,F2,0.786
+26,FS33LE,TRUE,Plaice,Pleuronectes platessa,43,C,,,NA
+27,FS34LE,TRUE,Lemon Sole,Microstomus kitt,19,A,,,NA
+28,FS35LE,TRUE,Red Gurnard,Chelidonichthys cuculus,19,C,,,NA
+29,FS36LE,TRUE,Plaice,Pleuronectes platessa,19,A,,,NA
+30,FS37LE,TRUE,Common Dab,Limanda limanda,19,C,,,NA
+31,FS38LE,TRUE,Grey Gurnard,Eutrigla gurnardus,38,B,,,NA
+32,FS39LE,TRUE,Grey Gurnard,Eutrigla gurnardus,38,C,,,NA
+33,FS3LE,TRUE,Argentine,Argentina sphyraena,33,C,2X,B12,0.76
+34,FS40LE,TRUE,Grey Gurnard,Eutrigla gurnardus,38,A,,,NA
+35,FS41LE,TRUE,Common Dab,Limanda limanda,43,A,,,NA
+36,FS42LE,TRUE,Common Dab,Limanda limanda,38,B,,,NA
+37,FS43LE,TRUE,Norway Pout,Trisopterus esmarkii,26,C,,,NA
+38,FS44LE,TRUE,Common Dab,Limanda limanda,19,B,,,NA
+39,FS45LE,TRUE,Common Dab,Limanda limanda,38,A,,,NA
+40,FS46LE,TRUE,Common Dab,Limanda limanda,19,A,,,NA
+41,FS47LE,TRUE,Argentine,Argentina sphyraena,38,A,,,NA
+42,FS48LE,TRUE,Argentine,Argentina sphyraena,38,C,,,NA
+43,FS49LE,TRUE,Poor Cod,Trisopterus minutus,38,C,,,NA
+44,FS4LE,TRUE,Argentine,Argentina sphyraena,33,B,2X,B9,0.768
+45,FS50LE,TRUE,Common Dab,Limanda limanda,43,C,,,NA
+46,FS51LE,TRUE,Poor Cod,Trisopterus minutus,38,B,,,NA
+47,FS52LE,TRUE,Cod,Gadus Morhua,19,A+,,,NA
+48,FS53LE,TRUE,Common Dab,Limanda limanda,38,C,,,NA
+49,FS54LE,TRUE,Norway Pout,Trisopterus esmarkii,26,A,,,NA
+50,FS55LE,TRUE,Poor Cod,Trisopterus minutus,38,A,,,NA
+51,FS56LE,TRUE,Common Dab,Limanda limanda,43,B,,,NA
+52,FS57LE,TRUE,Cod,Gadus Morhua,19,B,,,NA
+53,FS58LE,TRUE,Common Dab,Limanda limanda,33,A,,,NA
+54,FS59LE,TRUE,Argentine,Argentina sphyraena,38,B,,,NA
+55,FS5LE,TRUE,Cod,Gadus Morhua,19,A,2X,C6,0.779
+56,FS60LE,TRUE,Grey Gurnard,Eutrigla gurnardus,43,A,,,NA
+57,FS61LE,TRUE,Cod,Gadus Morhua,19,C,,,NA
+58,FS62LE,TRUE,Common Dab,Limanda limanda,33,C,,,NA
+59,FS63LE,TRUE,Common Dab,Limanda limanda,33,B,,,NA
+60,FS64LE,TRUE,Grey Gurnard,Eutrigla gurnardus,43,B,,,NA
+61,FS65LE,TRUE,Grey Gurnard,Eutrigla gurnardus,43,C,,,NA
+62,FS66LE,TRUE,Norway Pout,Trisopterus esmarkii,26,B,,,NA
+63,FS67LE,TRUE,Norway Pout,Trisopterus esmarkii,33,A,,,NA
+64,FS68LE,TRUE,Squid,Decapodiformes,38,A,,,NA
+65,FS69LE,TRUE,Squid,Decapodiformes,38,B,,,NA
+66,FS6LE,TRUE,Argentine,Argentina sphyraena,33,A,2X,B5,0.835
+67,FS70LE,TRUE,Squid,Decapodiformes,38,C,,,NA
+68,FS7LE,TRUE,Long Rough Dab,Hippoglossoides platessoides,33,B,2X,B11,0.758
+69,FS8LE,TRUE,Common Dab,Limanda limanda,41,A,2X,C5,0.766
+70,FS9LE,TRUE,Grey Gurnard,Eutrigla gurnardus,19,C?,2X,B4,0.794
+71,FS10,FALSE,Grey Gurnard,Eutrigla gurnardus,19,A?,,,NA
+72,FS11,FALSE,Grey Gurnard,Eutrigla gurnardus,19,B?,,,NA
+73,FS12,FALSE,Common Dab,Limanda limanda,41,B,,,NA
+74,FS13,FALSE,Long Rough Dab,Hippoglossoides platessoides,33,A,,,NA
+75,FS14,FALSE,Long Rough Dab,Hippoglossoides platessoides,33,C,,,NA
+76,FS15,FALSE,Squid,Decapodiformes,41,A,,,NA
+77,FS16,FALSE,Squid,Decapodiformes,41,B,,,NA
+78,FS17,FALSE,Plaice,Pleuronectes platessa,19,B,,,NA
+79,FS18,FALSE,Plaice,Pleuronectes platessa,19,C,,,NA
+80,FS19,FALSE,Plaice,Pleuronectes platessa,43,B,,,NA
+81,FS1,FALSE,Common Dab,Limanda limanda,41,C,,,NA
+82,FS20,FALSE,Lemon Sole,Microstomus kitt,19,C,,,NA
+83,FS21,FALSE,Norway Pout,Trisopterus esmarkii,33,C,,,NA
+84,FS22,FALSE,Red Gurnard,Chelidonichthys cuculus,19,B,,,NA
+85,FS23,FALSE,Bluemouth,Helicolenus dactylopterus,33,A,,,NA
+86,FS24,FALSE,Bluemouth,Helicolenus dactylopterus,33,C,,,NA
+87,FS25,FALSE,Blue Whiting,Micromesistius poutassou,33,C,,,NA
+88,FS26,FALSE,Bluemouth,Helicolenus dactylopterus,33,B,,,NA
+89,FS27,FALSE,Plaice,Pleuronectes platessa,19,A,,,NA
+90,FS28,FALSE,Red Gurnard,Chelidonichthys cuculus,19,A,,,NA
+91,FS29,FALSE,Blue Whiting,Micromesistius poutassou,33,B,,,NA
+92,FS2,FALSE,Squid,Decapodiformes,41,C,,,NA
+93,FS30,FALSE,Blue Whiting,Micromesistius poutassou,33,A,,,NA
+94,FS31,FALSE,Norway Pout,Trisopterus esmarkii,33,B,,,NA
+95,FS32,FALSE,Lemon Sole,Microstomus kitt,19,B,,,NA
+96,FS33,FALSE,Plaice,Pleuronectes platessa,43,C,,,NA
+97,FS34,FALSE,Lemon Sole,Microstomus kitt,19,A,,,NA
+98,FS35,FALSE,Red Gurnard,Chelidonichthys cuculus,19,C,,,NA
+99,FS36,FALSE,Plaice,Pleuronectes platessa,19,A,,,NA
+100,FS37,FALSE,Common Dab,Limanda limanda,19,C,,,NA
+101,FS38,FALSE,Grey Gurnard,Eutrigla gurnardus,38,B,,,NA
+102,FS39,FALSE,Grey Gurnard,Eutrigla gurnardus,38,C,,,NA
+103,FS3,FALSE,Argentine,Argentina sphyraena,33,C,,,NA
+104,FS40,FALSE,Grey Gurnard,Eutrigla gurnardus,38,A,,,NA
+105,FS41,FALSE,Common Dab,Limanda limanda,43,A,,,NA
+106,FS42,FALSE,Common Dab,Limanda limanda,38,B,,,NA
+107,FS43,FALSE,Norway Pout,Trisopterus esmarkii,26,C,,,NA
+108,FS44,FALSE,Common Dab,Limanda limanda,19,B,,,NA
+109,FS45,FALSE,Common Dab,Limanda limanda,38,A,,,NA
+110,FS46,FALSE,Common Dab,Limanda limanda,19,A,,,NA
+111,FS47,FALSE,Argentine,Argentina sphyraena,38,A,,,NA
+112,FS48,FALSE,Argentine,Argentina sphyraena,38,C,,,NA
+113,FS49,FALSE,Poor Cod,Trisopterus minutus,38,C,,,NA
+114,FS4,FALSE,Argentine,Argentina sphyraena,33,B,,,NA
+115,FS50,FALSE,Common Dab,Limanda limanda,43,C,,,NA
+116,FS51,FALSE,Poor Cod,Trisopterus minutus,38,B,,,NA
+117,FS52,FALSE,Cod,Gadus Morhua,19,A+,,,NA
+118,FS53,FALSE,Common Dab,Limanda limanda,38,C,,,NA
+119,FS54,FALSE,Norway Pout,Trisopterus esmarkii,26,A,,,NA
+120,FS55,FALSE,Poor Cod,Trisopterus minutus,38,A,,,NA
+121,FS56,FALSE,Common Dab,Limanda limanda,43,B,,,NA
+122,FS57,FALSE,Cod,Gadus Morhua,19,B,,,NA
+123,FS58,FALSE,Common Dab,Limanda limanda,33,A,,,NA
+124,FS59,FALSE,Argentine,Argentina sphyraena,38,B,,,NA
+125,FS5,FALSE,Cod,Gadus Morhua,19,A,,,NA
+126,FS60,FALSE,Grey Gurnard,Eutrigla gurnardus,43,A,,,NA
+127,FS61,FALSE,Cod,Gadus Morhua,19,C,,,NA
+128,FS62,FALSE,Common Dab,Limanda limanda,33,C,,,NA
+129,FS63,FALSE,Common Dab,Limanda limanda,33,B,,,NA
+130,FS64,FALSE,Grey Gurnard,Eutrigla gurnardus,43,B,,,NA
+131,FS65,FALSE,Grey Gurnard,Eutrigla gurnardus,43,C,,,NA
+132,FS66,FALSE,Norway Pout,Trisopterus esmarkii,26,B,,,NA
+133,FS67,FALSE,Norway Pout,Trisopterus esmarkii,33,A,,,NA
+134,FS68,FALSE,Squid,Decapodiformes,38,A,,,NA
+135,FS69,FALSE,Squid,Decapodiformes,38,B,,,NA
+136,FS6,FALSE,Argentine,Argentina sphyraena,33,A,,,NA
+137,FS70,FALSE,Squid,Decapodiformes,38,C,,,NA
+138,FS7,FALSE,Long Rough Dab,Hippoglossoides platessoides,33,B,,,NA
+139,FS8,FALSE,Common Dab,Limanda limanda,41,A,,,NA
+140,FS9,FALSE,Grey Gurnard,Eutrigla gurnardus,19,C?,,,NA
