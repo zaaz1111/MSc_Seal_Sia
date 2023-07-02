@@ -13,3 +13,9 @@ fs<-read.csv("C:/Users/zaahi/Documents/fish.samples.csv")%>%
     fs$Lipid.Extracted. == T ~ fs$Sample.Name,
     fs$Lipid.Extracted. == F ~ str_sub(fs$Sample.Name, 1, -3)
   ))
+
+fish.samples <- read.csv(here('fish.samples.csv'))
+fish.data <- read.csv(here('Processed Data/LE_Fish_CN_Collated.csv'))%>%
+  merge(fish.samples)%>%
+  subset(select=c(1,2,3,9,11))%>%
+  write.csv(file='Source_mixing_data.csv')

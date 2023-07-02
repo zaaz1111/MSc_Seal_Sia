@@ -17,9 +17,14 @@ sidat<-mutate(sidat,Species=case_when(
          ))%>%
   subset(sidat$C.N.ratio>2)
 
+mixdat_consumer <- write.csv(sidat,file='Consumer_mixing_data.csv')
 #Make subsets for Plasma and RBC
 sidatP<-subset(sidat[sidat$Type=='Plasma',])
 sidatRBC<-subset(sidat[sidat$Type=='RBC',])
+
+#Subset the species data to see if the sample types are significantly different
+sidatharb<-subset(sidat[sidat$Species=='Harbor',])
+sidatgrey<-subset(sidat[sidat$Species=='Grey',])
 
 #Transform the data to SIBERdat, data that matches SIBER's expected format:
 siberdat<-subset(sidat, select = c(δ15N..air, δ13C...V.PDB, Species, Type))
@@ -155,9 +160,16 @@ ggplot(data = sidat,
 ##ANOVA the d13C and d15N
 onewayC_P<-aov(δ13C...V.PDB~Species,data=sidatP)
 
-onewayN_P<-aov(δ15N..air~Species,data=sidatP)
-
 onewayC_RBC<-aov(δ13C...V.PDB~Species,data=sidatRBC)
 
 onewayN_P<-aov(δ15N..air~Species,data=sidatP)
 
+onewayN_RBC<-aov(δ15N..air~Species,data=sidatRBC)
+
+onewayC_harb<-aov(δ13C...V.PDB~(Type),data=sidatharb)
+
+onewayC_grey<-aov(δ13C...V.PDB~(Type),data=sidatgrey)
+
+onewayN_harb<-aov(δ15N..air~(Type),data=sidatharb)
+
+onewayN_grey<-aov(δ15N..air~(Type),data=sidatgrey)
