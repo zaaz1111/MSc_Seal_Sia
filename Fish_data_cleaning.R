@@ -33,6 +33,7 @@ bigfish <- rbind(fish1,fish2)
 
 megafish<-merge(fish.samples, bigfish)
 colnames(megafish)[15]<-'CN_ratio'
+<<<<<<< HEAD
 
 ggplot(megafish)+
   geom_boxplot(aes(x=Spp,y=CN_ratio,fill=Lipid.Extracted.))+
@@ -42,3 +43,13 @@ ggplot(megafish)+
   guides(color=guide_legend(title='Lipid Extracted?'),labels=c('No','Yes'))
 
                             
+=======
+
+ggplot(megafish)+
+  geom_boxplot(aes(x=Spp,y=CN_ratio,fill=Lipid.Extracted.))+
+  ggtitle('Lipid Extracted Samples')+
+  xlab('C/N Ratio')+
+  ylab('Species')+
+  guides(color=guide_legend(title='Lipid Extracted?',
+                            override.aes = c('No','Yes')))
+>>>>>>> 49f86745f8a74644427fe130fc474d846107a541

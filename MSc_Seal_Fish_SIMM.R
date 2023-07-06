@@ -215,13 +215,18 @@ end_time = Sys.time()
 end_time - start_time
 
 # Process diagnostics, summary stats, and posterior plots
+<<<<<<< HEAD
 output_JAGS(jags.uninf_harbor_RBC_VL, mix_harbor_RBC, source,
+=======
+output_JAGS(jags.uninf_harbor_RBC, mix_harbor_RBC, source,
+>>>>>>> 49f86745f8a74644427fe130fc474d846107a541
             output_options = list(summary_save = TRUE, summary_name = "summary_statistics_harbor_RBC_vl",
                                   sup_post = FALSE, plot_post_save_pdf = TRUE, plot_post_name = "posterior_density_harbor_RBC_vl",
                                   sup_pairs = FALSE, plot_pairs_save_pdf = TRUE, plot_pairs_name = "pairs_plot_harbor_RBC_vl", 
                                   sup_xy = TRUE, plot_xy_save_pdf = FALSE, plot_xy_name = "xy_plot_harbor_RBC_vl", 
                                   gelman = TRUE, heidel = FALSE, geweke = TRUE, diag_save = TRUE, diag_name = "diagnostics_harbor_RBC_vl", 
                                   indiv_effect = FALSE, plot_post_save_png = FALSE, plot_pairs_save_png = FALSE, plot_xy_save_png =
+<<<<<<< HEAD
                                     FALSE, diag_save_ggmcmc = TRUE))
 
 ###Now with Grey RBC's
@@ -262,3 +267,6 @@ output_JAGS(jags.uninf_grey_RBC_vl, mix_grey_RBC, source,
                                   gelman = TRUE, heidel = FALSE, geweke = TRUE, diag_save = TRUE, diag_name = "diagnostics_grey_grey_RBC_vl", 
                                   indiv_effect = FALSE, plot_post_save_png = FALSE, plot_pairs_save_png = FALSE, plot_xy_save_png =
                                     FALSE, diag_save_ggmcmc = TRUE))
+=======
+                                    FALSE, diag_save_ggmcmc = TRUE))
+>>>>>>> 49f86745f8a74644427fe130fc474d846107a541
