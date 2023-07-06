@@ -96,7 +96,8 @@ SEA.B<-SEA.B%>%
 
 cats<-c('Plasma Grey','Plasma Harbor','RBC Grey','RBC Harbor')
 ggplot(sea_dumyframe)+
-  geom_violin(aes(x=factor(m),y=z,fill=factor(m)),col='black')+
+  geom_violin(aes(x=factor(m),y=z,fill=factor(m)))+
+  geom_boxplot(width=0.1, outlier.shape=NA, aes(x=factor(m),y=z,fill=factor(m)))+
   xlab("Sample Type | Species")+
   ylab(expression("Standard Ellipse Area " ('\u2030' ^2) ))+
   theme_minimal()
