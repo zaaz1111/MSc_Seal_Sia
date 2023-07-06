@@ -1,0 +1,103 @@
+
+################################################################################
+# Gelman-Rubin Diagnostic
+################################################################################
+
+Generally the Gelman diagnostic should be < 1.05
+
+
+Out of 25 variables: 0 > 1.01
+
+                      
+0 > 1.05
+
+                      
+0 > 1.1
+
+
+The worst variables are:
+
+              Point est. Upper C.I.
+p.global[6]     1.004317   1.012501
+p.global[2]     1.001736   1.005944
+p.global[11]    1.001571   1.003405
+p.global[8]     1.001516   1.003902
+loglik[1]       1.001377   1.006101
+p.global[4]     1.001187   1.005205
+loglik[6]       1.000727   1.001785
+loglik[7]       1.000675   1.001971
+p.global[1]     1.000671   1.001121
+resid.prop[1]   1.000626   1.001825
+
+
+And here are the Gelman diagnostics for all variables:
+
+              Point est. Upper C.I.
+deviance       1.0001478  1.0010586
+loglik[1]      1.0013771  1.0061006
+loglik[2]      0.9999742  1.0011728
+loglik[3]      1.0000584  1.0004701
+loglik[4]      0.9999732  1.0008018
+loglik[5]      1.0000150  1.0009835
+loglik[6]      1.0007274  1.0017848
+loglik[7]      1.0006751  1.0019711
+loglik[8]      1.0005050  1.0026490
+loglik[9]      1.0001616  1.0016484
+p.global[1]    1.0006710  1.0011215
+p.global[10]   0.9999740  1.0007374
+p.global[11]   1.0015710  1.0034049
+p.global[12]   1.0004743  1.0016683
+p.global[13]   1.0002913  1.0016846
+p.global[2]    1.0017364  1.0059441
+p.global[3]    1.0002305  1.0009847
+p.global[4]    1.0011873  1.0052054
+p.global[5]    1.0002912  1.0017026
+p.global[6]    1.0043167  1.0125009
+p.global[7]    1.0000683  1.0007223
+p.global[8]    1.0015156  1.0039022
+p.global[9]    1.0003089  1.0006235
+resid.prop[1]  1.0006258  1.0018255
+resid.prop[2]  0.9996536  0.9998458
+
+################################################################################
+# Geweke Diagnostic
+################################################################################
+
+The Geweke diagnostic is a standard z-score, so we'd expect 5% to be outside +/-1.96
+Number of variables outside +/-1.96 in each chain (out of 
+25
+):
+
+
+       Chain 1 Chain 2 Chain 3
+Geweke       3       7       1
+
+
+And here are the Geweke diagnostics for all variables:
+
+              chain1 chain2 chain3
+deviance      -0.418  1.488 -1.297
+loglik[1]      2.056  1.020 -1.584
+loglik[2]     -1.385  0.321 -0.340
+loglik[3]      1.851 -0.136 -0.448
+loglik[4]      0.439  0.396 -1.264
+loglik[5]      0.463  0.512 -1.340
+loglik[6]     -1.032 -3.502  1.675
+loglik[7]     -1.388 -3.358  1.497
+loglik[8]     -3.176 -0.750  0.492
+loglik[9]      2.111  1.996 -0.860
+p.global[1]    0.492 -1.036 -0.246
+p.global[10]   0.217 -0.109 -0.992
+p.global[11]   0.576 -1.095  0.481
+p.global[12]  -0.164 -0.529 -0.428
+p.global[13]  -0.320  0.823 -0.755
+p.global[2]    0.443  1.111 -1.096
+p.global[3]    0.651 -2.359 -1.514
+p.global[4]   -1.703 -0.989  2.455
+p.global[5]   -1.044  1.296  0.448
+p.global[6]   -0.256  2.160  0.700
+p.global[7]   -0.595  0.108  0.101
+p.global[8]   -0.766 -0.433  0.552
+p.global[9]    1.190 -0.373  0.738
+resid.prop[1] -0.548  2.569 -0.027
+resid.prop[2]  0.688 -2.360  1.625

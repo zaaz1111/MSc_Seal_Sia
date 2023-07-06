@@ -31,59 +31,14 @@ fish1 <- read_xlsx(here('Raw Data/Fish and Seal Plate Collated Raw (Plate 2).xls
 fish2 <- read_csv(here('Raw Data/Cleaned_plate_3.csv'))
 bigfish <- rbind(fish1,fish2)
 
-LR_fish <- c(fish1$name,fish2$name)
-LR_fish<-LR_fish[nchar(LR_fish)<=4]
+megafish<-merge(fish.samples, bigfish)
+colnames(megafish)[15]<-'CN_ratio'
 
-fish<-c(fish1$name[5:20],fish1$name[27:69],fish2$name[1:11])%>%
-  data.frame()
+ggplot(megafish)+
+  geom_boxplot(aes(x=Spp,y=CN_ratio,fill=Lipid.Extracted.))+
+  ggtitle('Lipid Extracted Samples')+
+  xlab('C/N Ratio')+
+  ylab('Species')+
+  guides(color=guide_legend(title='Lipid Extracted?'),labels=c('No','Yes'))
 
-colnames(fish)<-'LE_sample_name'
-fish<-fish%>%
-  mutate(LR_sample_name = case_when(
-    substr(fish$LE_sample_name,1,4) %in% LR_fish ~ substr(LE_sample_name,1,4)))
-    
-le_cn<-{}
-for(i in fish$LE_sample_name){
-  for(z in bigfish$name){
-    if(i==z){
-      le_cn<-append(le_cn,bigfish$`C/N`[bigfish$name==z])
-    }
-  }
-}
-
-fish <- cbind(fish,le_cn)
-
-lr_cn<-{}
-for(i in na.omit(fish$LR_sample_name)){
-  for(z in bigfish$name){
-    if(i==z){
-      lr_cn<-append(lr_cn,bigfish$`C/N`[bigfish$name==z])
-    }
-  }
-}
-
-index <- 1
-lr_cn_ord <- {}
-for(i in fish$LR_sample_name){
-  if(is.na(i)==F){
-    lr_cn_ord <- append(lr_cn_ord, lr_cn[index])
-    index <- index + 1
-  } else{
-    lr_cn_ord <- append(lr_cn_ord, NA)
-  }
-}
-
-fish <- cbind(fish,lr_cn_ord)
-
-spp <- {}
-for(i in fish$LE_sample_name){
-  for(z in fish.samples$name){
-    if(i==z){
-      spp<-append(spp,fish.samples$Spp[fish.samples$name==z])
-    }
-  }
-}
-  
-ish<-fish[-16,]
-fish <- cbind(fish,spp)
-
+                            
