@@ -1,7 +1,7 @@
 ##Use librarian or pacman on startup to manage all packages 
 ##Figure out how to use a package on startup
 library(librarian)
-shelf(MixSIAR,SIBER,here,tidyverse,ggplot2,rjags,ellipse,coda)
+shelf(MixSIAR,SIBER,here,tidyverse,ggplot2,rjags,ellipse,coda,readxl)
 
 #Read in the data
 sidat<-read.csv(here('Processed Data/Seal_Data.csv'),head=T)
@@ -36,8 +36,12 @@ siberdat<-siberdat[,c(2,1,3,4)]%>%
 
 ##Redoing the SIBER stuff with the ggplot syntax from https://github.com/AndrewLJackson/SIBER/blob/306aa9dc922b9c73dc8223f423e667f11fad844a/vignettes/Plot-posterior-ellipses.R
 #Summary stats (TA, SEA and SEAc) for each group
-group.ML <- groupMetricsML(siberdat)
+group.ML <- groupMetricsML(siberdat)%>%
+  data.frame()%>%
+  rbind(colMeans(SEA.B))
+rownames(group.ML)[4]<-'SEAb'
 
+write.csv(group.ML,file='Seal sample Layman metrics.csv',)
 # options for running jags
 parms <- list()
 parms$n.iter <- 1000000   # number of iterations to run the model for
@@ -94,21 +98,27 @@ siberDensityPlot(SEA.B, xticklabels = colnames(group.ML),
 SEA.B<-SEA.B%>%
   data.frame()
 
-cats<-c('Plasma Grey','Plasma Harbor','RBC Grey','RBC Harbor')
 ggplot(sea_dumyframe)+
   geom_violin(aes(x=factor(m),y=z,fill=factor(m)))+
   geom_boxplot(width=0.1, outlier.shape=NA, aes(x=factor(m),y=z,fill=factor(m)))+
-  xlab("Sample Type | Species")+
+  scale_fill_manual(values=scheme1 ,guide_legend(title='Species | Sample Type'))+
   ylab(expression("Standard Ellipse Area " ('\u2030' ^2) ))+
+  xlab(NULL)+
   theme_minimal()
+
+scheme1 <- c('#c2a5cf','#7b3294','#a6dba0','#008837')
+scheme2 <- c('#b2abd2','#5e3c99','#fdb863','#e66101')
+scheme3 <- c('#dfc27d','#a6611a','#80cdc1','#018571')
+scheme4 <- c('#92c5de','#0571b0','#f4a582','#ca0020')
+  
 
 sea_dumyframe <- data.frame(c(SEA.B[,1],SEA.B[,2],SEA.B[,3],SEA.B[,4]))%>%
   cbind(m)
 colnames(sea_dumyframe)<-c('z','m')
-sillygoose <- rep('Plasma Grey',6000)
-e<-rep('Plasma Harbor',6000)
-f<-rep('RBC Grey',6000)
-g<-rep('RBC Harbor',6000)
+sillygoose <- rep('Grey | Plasma ',6000)
+e<-rep('Harbor | Plasma ',6000)
+f<-rep('Grey | RBC',6000)
+g<-rep('Harbor | RBC',6000)
 m<-c(sillygoose,e,f,g)
 
 # how many of the posterior draws do you want?
@@ -194,19 +204,23 @@ p.ell <- 0.95
 ggplot(data = sidat, 
        aes(x = δ13C...V.PDB, 
            y = δ15N..air)) + 
-  geom_point(aes(color = Species, shape = Type), size = 3,alpha=0.75) +
+  geom_point(aes(color = Species), size = 3,alpha=0.75) +
+  scale_color_manual(values = c('#7b3294','#008837'))+
   ylab(expression(paste(delta^{15}, "N (\u2030)"))) +
   xlab(expression(paste(delta^{13}, "C (\u2030)"))) + 
   theme(text = element_text(size=16))+
   stat_ellipse(aes(group = interaction(Species, Type), 
                    fill = Species, 
-                   color = Species), 
-               alpha = 0.25, 
+                   color = Species),
+               linetype = 2,
+               alpha = 0.5, 
                level = p.ell,
                type = "norm",
                geom = "polygon")+
+  scale_fill_manual(values = c('#c2a5cf','#a6dba0'))+
   theme_minimal()+
-  geom_polygon(data=hull , aes(fill = Species, lty=Type, alpha = 0.5))
+  #geom_polygon(data=hull , aes(fill = Species, lty=Type, alpha = 0.5))+
+  facet_wrap(~Type)
 ##ANOVA the d13C and d15N
 onewayC_P<-aov(δ13C...V.PDB~Species,data=sidatP)
 
