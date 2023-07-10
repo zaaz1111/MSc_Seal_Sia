@@ -41,7 +41,9 @@ group.ML <- groupMetricsML(siberdat)%>%
   rbind(colMeans(SEA.B))
 rownames(group.ML)[4]<-'SEAb'
 
-write.csv(group.ML,file='Seal sample Layman metrics.csv',)
+
+
+write.csv(group.ML,file='Seal sample Layman metrics.csv')
 # options for running jags
 parms <- list()
 parms$n.iter <- 1000000   # number of iterations to run the model for
