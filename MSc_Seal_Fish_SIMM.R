@@ -16,6 +16,12 @@ source <- load_source_data(filename = here('Processed Data/Source_mixing_data.cs
                            mix)
 
 
+source<-read.csv(here('Processed Data/Source_mixing_data.csv'))
+
+ggplot(source)+
+  geom_point(aes(d13c,d15n,color=Spp))+
+  theme_minimal()
+
 #Make discrimination data with published values from the literature
 discr <- load_discr_data(filename=here('Dummy_tdfs.csv'), mix)
 
@@ -130,7 +136,8 @@ source <- load_source_data(filename = here('Processed Data/Source_mixing_data.cs
 
 discr_harbor_RBC <- load_discr_data(filename=here('Processed Data/Less_dummy_tdfs_harbs.csv'), mix_harbor_RBC)
 
-plot_data(filename="isospace_plot_harbs_plasma", plot_save_pdf=TRUE, plot_save_png=FALSE, mix_harbor_RBC,source,discr_harbor_RBC)
+plot_data(filename="isospace_plot_harbs_plasma", plot_save_pdf=TRUE, plot_save_png=FALSE, 
+          mix_harbor_RBC,source,discr_harbor_RBC)
 
 model_filename <- "MixSIAR_model_msc_harbor_RBC_1.txt"   # Name of the JAGS model file
 resid_err <- TRUE
@@ -154,7 +161,7 @@ output_JAGS(jags.uninf_harbor_RBC, mix_harbor_RBC, source,
                                   indiv_effect = FALSE, plot_post_save_png = FALSE, plot_pairs_save_png = FALSE, plot_xy_save_png =
                                     FALSE, diag_save_ggmcmc = TRUE))
 
-###Now with Grey RBC's
+###Using this one!!!
 mix_grey_RBC <- load_mix_data(filename = here('Processed Data/consumer_grey_RBC.csv'),
                                  iso_names<-c('d13c', 'd15n'),
                                  factors = NULL,
@@ -162,7 +169,7 @@ mix_grey_RBC <- load_mix_data(filename = here('Processed Data/consumer_grey_RBC.
                                  fac_nested = NULL,
                                  cont_effects = NULL)
 
-source <- load_source_data(filename = here('Processed Data/Source_mixing_data.csv'),
+source <- load_source_data(filename = here('Processed Data/Source_mixing_data_grouped.csv'),
                            source_factors = NULL,
                            conc_dep = F,
                            data_type = 'raw',
@@ -170,16 +177,34 @@ source <- load_source_data(filename = here('Processed Data/Source_mixing_data.cs
 
 discr_greys <- load_discr_data(filename=here('Processed Data/less_dummy_tdfs_greys.csv'), mix_grey_RBC)
 
-plot_data(filename="isospace_plot_greys", plot_save_pdf=TRUE, plot_save_png=FALSE, mix_grey_RBC,source,discr_greys)
+plot_data(filename="isospace_plot_greys_RBC_grouped_samples", plot_save_pdf=TRUE, 
+          plot_save_png=FALSE, mix=mix_grey_RBC, source=source, discr=discr_greys)
 
-model_filename <- "MixSIAR_model_msc_grey_plasma_1.txt"   # Name of the JAGS model file
+grey_rbc_alpha <- c(0,0,35.3,6.5,33.5,0.6,4.5)
+
+grey_rbc_alpha <- grey_rbc_alpha*length(grey_rbc_alpha)/sum(grey_rbc_alpha)
+
+grey_rbc_alpha[which(grey_rbc_alpha==0)] <- 0.01
+
+# Plot your informative prior
+plot_prior(alpha.prior=grey_rbc_alpha,
+           source=source,
+           plot_save_pdf=TRUE,
+           plot_save_png=FALSE,
+           filename="prior_plot_kw_inf")
+
+
+
+
+model_filename <- "MixSIAR_model_msc_grey_RBC_2_grouped_sources_inf.txt"   # Name of the JAGS model file
 resid_err <- TRUE
 process_err <- TRUE
 write_JAGS_model(model_filename, resid_err, process_err, mix_grey_RBC, source)
 
 # Run the JAGS model 
 start_time = Sys.time()
-jags.uninf_grey_RBC_vl <- run_model(run="very long",mix_grey_RBC,source,discr_greys,model_filename)
+jags.uninf_grey_RBC_vl <- run_model(run="very long",mix_grey_RBC,source,discr_greys,
+                                    model_filename, alpha.prior = grey_rbc_alpha)
 end_time = Sys.time()
 end_time - start_time
 
