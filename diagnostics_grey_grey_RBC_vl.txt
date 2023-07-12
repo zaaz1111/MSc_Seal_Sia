@@ -6,52 +6,52 @@
 Generally the Gelman diagnostic should be < 1.05
 
 
-Out of 19 variables: 3 > 1.01
+Out of 19 variables: 2 > 1.01
 
                       
-2 > 1.05
+1 > 1.05
 
                       
-2 > 1.1
+1 > 1.1
 
 
 The worst variables are:
 
               Point est. Upper C.I.
-p.global[1]     1.284186   1.674122
-p.global[2]     1.115307   1.212599
-p.global[6]     1.016574   1.031370
-resid.prop[2]   1.005823   1.008435
-p.global[3]     1.002416   1.009776
-loglik[1]       1.001913   1.004234
-p.global[4]     1.000821   1.002998
-resid.prop[1]   1.000685   1.001795
-p.global[7]     1.000390   1.002320
-loglik[2]       1.000192   1.000471
+p.global[2]     1.103819   1.176217
+p.global[1]     1.022807   1.024420
+p.global[6]     1.004922   1.006424
+loglik[1]       1.002924   1.005379
+p.global[4]     1.002207   1.003445
+resid.prop[2]   1.002030   1.005790
+loglik[3]       1.001545   1.005237
+loglik[5]       1.001541   1.004736
+loglik[4]       1.001528   1.004770
+deviance        1.001290   1.003913
 
 
 And here are the Gelman diagnostics for all variables:
 
               Point est. Upper C.I.
-deviance       0.9999908  1.0008481
-loglik[1]      1.0019134  1.0042340
-loglik[2]      1.0001923  1.0004715
-loglik[3]      0.9998302  1.0003736
-loglik[4]      0.9998654  1.0007263
-loglik[5]      0.9999166  1.0008325
-loglik[6]      1.0001717  1.0017360
-loglik[7]      1.0000930  1.0015394
-loglik[8]      1.0000377  1.0004002
-loglik[9]      0.9996908  0.9999801
-p.global[1]    1.2841856  1.6741224
-p.global[2]    1.1153069  1.2125989
-p.global[3]    1.0024163  1.0097761
-p.global[4]    1.0008213  1.0029983
-p.global[5]    0.9998057  1.0005558
-p.global[6]    1.0165735  1.0313702
-p.global[7]    1.0003898  1.0023200
-resid.prop[1]  1.0006846  1.0017954
-resid.prop[2]  1.0058232  1.0084349
+deviance       1.0012895   1.003913
+loglik[1]      1.0029235   1.005379
+loglik[2]      1.0002497   1.001383
+loglik[3]      1.0015448   1.005237
+loglik[4]      1.0015280   1.004770
+loglik[5]      1.0015411   1.004736
+loglik[6]      1.0004129   1.000523
+loglik[7]      1.0012059   1.001480
+loglik[8]      1.0009288   1.001988
+loglik[9]      1.0002860   1.000886
+p.global[1]    1.0228074   1.024420
+p.global[2]    1.1038192   1.176217
+p.global[3]    0.9999111   1.000081
+p.global[4]    1.0022074   1.003445
+p.global[5]    1.0005489   1.002395
+p.global[6]    1.0049223   1.006424
+p.global[7]    1.0000225   1.000776
+resid.prop[1]  0.9999878   1.001035
+resid.prop[2]  1.0020297   1.005790
 
 ################################################################################
 # Geweke Diagnostic
@@ -64,28 +64,28 @@ Number of variables outside +/-1.96 in each chain (out of
 
 
        Chain 1 Chain 2 Chain 3
-Geweke       1       2       3
+Geweke       0       2       6
 
 
 And here are the Geweke diagnostics for all variables:
 
               chain1 chain2 chain3
-deviance      -0.982 -0.600 -1.187
-loglik[1]      0.918  0.927  0.341
-loglik[2]      0.584  0.297  0.825
-loglik[3]     -1.308 -0.595 -0.393
-loglik[4]      0.510  0.474  0.085
-loglik[5]      0.557  0.546  0.105
-loglik[6]      0.299 -0.133  1.212
-loglik[7]      0.388 -0.106  1.224
-loglik[8]      0.536  0.084  0.942
-loglik[9]     -0.419 -0.107 -0.865
-p.global[1]   -1.338 -1.454   -Inf
-p.global[2]   -3.066 -3.326    Inf
-p.global[3]    0.946  0.400  0.400
-p.global[4]   -0.610 -0.278 -2.584
-p.global[5]   -0.481 -1.075  0.049
-p.global[6]    0.372  2.193  1.581
-p.global[7]    0.974  0.924 -0.358
-resid.prop[1] -0.798  0.710 -0.166
-resid.prop[2] -0.921 -0.004  0.409
+deviance       0.951  0.160  0.869
+loglik[1]     -0.790 -0.215 -1.409
+loglik[2]     -0.738  1.219 -2.277
+loglik[3]     -0.941  0.164 -0.400
+loglik[4]     -0.913  1.003 -2.158
+loglik[5]     -0.909  0.970 -2.176
+loglik[6]     -0.820  0.797 -0.860
+loglik[7]     -0.969  1.386 -1.482
+loglik[8]     -0.787  1.817 -2.084
+loglik[9]     -0.069 -0.388  1.100
+p.global[1]    1.907 -1.625 -2.384
+p.global[2]   -1.048  1.842 -2.430
+p.global[3]    0.174  0.594  1.018
+p.global[4]    1.928 -0.681  0.425
+p.global[5]   -0.151 -0.167  0.095
+p.global[6]   -0.621  2.054 -0.042
+p.global[7]   -1.360 -2.164 -0.884
+resid.prop[1]  0.767 -1.140  1.652
+resid.prop[2]  0.694 -0.250 -0.886

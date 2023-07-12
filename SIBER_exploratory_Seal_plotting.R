@@ -49,7 +49,7 @@ parms <- list()
 parms$n.iter <- 1000000   # number of iterations to run the model for
 parms$n.burnin <- 500000 # discard the first set of values
 parms$n.thin <- 500     # thin the posterior by this many
-parms$n.chains <- 3        # run this many chains
+parms$n.chains <- 5        # run this many chains
 parms$save.output = T #Tell it to save the SIBER output
 parms$save.dir <- here('SIBER') # Where to save this model
 
@@ -77,7 +77,7 @@ all.files <- dir(parms$save.dir, full.names = TRUE)
 model.files <- all.files[grep("jags_output", all.files)]
 
 # test convergence for the first one
-do.this <- 1
+do.this <- 4
 
 load(model.files[do.this])
 
