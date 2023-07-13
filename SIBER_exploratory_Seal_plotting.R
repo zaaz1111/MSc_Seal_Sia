@@ -36,12 +36,7 @@ siberdat<-siberdat[,c(2,1,3,4)]%>%
 
 ##Redoing the SIBER stuff with the ggplot syntax from https://github.com/AndrewLJackson/SIBER/blob/306aa9dc922b9c73dc8223f423e667f11fad844a/vignettes/Plot-posterior-ellipses.R
 #Summary stats (TA, SEA and SEAc) for each group
-group.ML <- groupMetricsML(siberdat)%>%
-  data.frame()%>%
-  rbind(colMeans(SEA.B))
-rownames(group.ML)[4]<-'SEAb'
-
-
+group.ML <- groupMetricsML(siberdat)#
 
 write.csv(group.ML,file='Seal sample Layman metrics.csv')
 # options for running jags
@@ -69,6 +64,11 @@ ellipses.posterior <- siberMVN(siberdat, parms, priors)
 # calculate the SEA.B for each group.
 SEA.B <- siberEllipses(ellipses.posterior)
 
+gml<-group.ML%>%
+  data.frame()%>%
+  rbind(colMeans(SEA.B))
+rownames(gml)[4]<-'SEAb'
+
 
 #Look at the diagnostics using Coda
 all.files <- dir(parms$save.dir, full.names = TRUE)
@@ -77,7 +77,7 @@ all.files <- dir(parms$save.dir, full.names = TRUE)
 model.files <- all.files[grep("jags_output", all.files)]
 
 # test convergence for the first one
-do.this <- 4
+do.this <- 1
 
 load(model.files[do.this])
 

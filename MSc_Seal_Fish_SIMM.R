@@ -152,7 +152,7 @@ end_time - start_time
 
 # Process diagnostics, summary stats, and posterior plots
 
-output_JAGS(jags.uninf_harbor_RBC, mix_harbor_RBC, source,
+output_JAGS(jags.uninf_harbor_RBC_extreme, mix_harbor_RBC, source,
             output_options = list(summary_save = TRUE, summary_name = "summary_statistics_harbor_RBC_vl",
                                   sup_post = FALSE, plot_post_save_pdf = TRUE, plot_post_name = "posterior_density_harbor_RBC_vl",
                                   sup_pairs = FALSE, plot_pairs_save_pdf = TRUE, plot_pairs_name = "pairs_plot_harbor_RBC_vl", 
@@ -203,7 +203,7 @@ write_JAGS_model(model_filename, resid_err, process_err, mix_grey_RBC, source)
 
 # Run the JAGS model 
 start_time = Sys.time()
-jags.uninf_grey_RBC_vl <- run_model(run="very long",mix_grey_RBC,source,discr_greys,
+jags.uninf_grey_RBC_extreme <- run_model(run="extreme",mix_grey_RBC,source,discr_greys,
                                     model_filename, alpha.prior = grey_rbc_alpha)
 end_time = Sys.time()
 end_time - start_time
