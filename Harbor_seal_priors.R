@@ -1,5 +1,3 @@
-
-
 harbor_priors <- c(
   Argentine_g <- 31.4,
   Bluemouth_g <- 0,
