@@ -1,5 +1,5 @@
 library(librarian)
-shelf(MixSIAR,SIBER,here,tidyverse,ggplot2,rjags,ellipse,readxl,beepr)
+shelf(MixSIAR,SIBER,here,tidyverse,ggplot2,rjags,ellipse,readxl,beepr,colorspace)
 
 #Load in the Consumer mixing data
 mix_grey_RBC <- load_mix_data(filename = here('Processed Data/consumer_grey_RBC.csv'),
@@ -20,9 +20,17 @@ source <- load_source_data(filename = here('idfkanymore..csv'),
 discr_greys <- load_discr_data(filename=here('Processed Data/Semi_smart_Seal_RBC_TDFS.csv'), mix_grey_RBC)
 
 #Create an isospace plot
-plot_data(filename="isospace_plot_greys_RBC_grouped_samples", plot_save_pdf=TRUE, 
-          plot_save_png=FALSE, mix=mix_grey_RBC, source=source, discr=discr_greys)
-
+grp <- plot_data(filename="isospace_plot_greys_RBC_grouped_samples", plot_save_pdf=F, 
+          plot_save_png=FALSE, mix=mix_grey_RBC, source=source, 
+          discr=discr_greys, return_obj = T)
+grp+  
+  ylab(expression(paste(delta^{15}, "N (\u2030)"))) +
+  xlab(expression(paste(delta^{13}, "C (\u2030)")))+
+  theme(panel.border = element_blank(), panel.background = element_blank(),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black"),
+        axis.title=element_text(size=20), axis.text=element_text(size=14),
+        legend.text=element_text(size=12), legend.title=element_text(size=14))
 #Load in priors (Maybe a note for which prior is which value?)
 #######MixSIAR Reads priors alphabetically by source data!
 ###Grey Seal Priors
