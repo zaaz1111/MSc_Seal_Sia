@@ -8,14 +8,16 @@ mix_grey_RBC <- load_mix_data(filename = here('Processed Data/consumer_grey_RBC.
                                  fac_random = NULL,
                                  fac_nested = NULL,
                                  cont_effects = NULL)
+
+
 #Load in the source mixing data
-source <- load_source_data(filename = here('Processed Data/Source_mixing_data_grouped.csv'),
+source <- load_source_data(filename = here('idfkanymore..csv'),
                            source_factors = NULL,
                            conc_dep = F,
                            data_type = 'raw',
                            mix_grey_RBC)
 #Load in the TDF data
-discr_greys <- load_discr_data(filename=here('Processed Data/less_dummy_tdfs_greys.csv'), mix_grey_RBC)
+discr_greys <- load_discr_data(filename=here('Processed Data/Semi_smart_Seal_RBC_TDFS.csv'), mix_grey_RBC)
 
 #Create an isospace plot
 plot_data(filename="isospace_plot_greys_RBC_grouped_samples", plot_save_pdf=TRUE, 
@@ -29,7 +31,7 @@ grey_priors <- c(
   Bluemouth_g <- 33.6,
   Cod_g <- 35.3,
   Flatfish_g <- 6.5,
-  #Sandeel_g <- 18.8,
+  Sandeel_g <- 18.8,
   Scorpionfish_g <- 33.6,
   Squid <- 0.9,
   Trisopterus_g <- 4.5
@@ -53,8 +55,8 @@ write_JAGS_model(model_filename, resid_err, process_err, mix_grey_RBC, source)
 
 # Run the JAGS model 
 start_time = Sys.time()
-jags.uninf_grey_RBC_extreme <- run_model(run="extreme",mix_grey_RBC,source,discr_greys,
-                                    model_filename, alpha.prior = grey_rbc_alpha)
+jags.uninf_grey_RBC_extreme <- run_model(run="test",mix_grey_RBC,source,discr_greys,
+                                    model_filename, alpha.prior = grey_alpha_priors)
 end_time = Sys.time()
 end_time - start_time
 
