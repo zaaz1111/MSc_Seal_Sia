@@ -26,11 +26,11 @@ grp <- plot_data(filename="isospace_plot_greys_RBC_grouped_samples", plot_save_p
 grp+  
   ylab(expression(paste(delta^{15}, "N (\u2030)"))) +
   xlab(expression(paste(delta^{13}, "C (\u2030)")))+
-  theme(panel.border = element_blank(), panel.background = element_blank(),
-        panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
-        axis.line = element_line(colour = "black"),
-        axis.title=element_text(size=20), axis.text=element_text(size=14),
-        legend.text=element_text(size=12), legend.title=element_text(size=14))
+  theme(axis.title=element_text(size=20), axis.text=element_text(size=14),
+        legend.text=element_text(size=12), legend.title=element_text(size=14))+
+  geom_point(data=data.frame(source$S_MU),aes(d13c,d15n,color=source$source_names))+
+  theme_classic()
+
 #Load in priors (Maybe a note for which prior is which value?)
 #######MixSIAR Reads priors alphabetically by source data!
 ###Grey Seal Priors

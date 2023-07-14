@@ -16,7 +16,7 @@ fishsourcecomp <- merge(fishsourcec,fishsourcen,by='name')%>%
 write.csv(fishsourcecomp,file='Composite_source_data.csv')
 ###Add in sandeel by hand
 ####Silly stupid dumb fish re-cleaning hehe xD
-Flatfish <- c('Long Rough Dab','Plaice')
+Flatfish <- c('Lemon Sole', 'Long Rough Dab')
 Scorpionfish <- c('Red Gurnard','Grey Gurnard')
 Trisopterus <- c('Blue Whiting','Norway Pout','Poor Cod')
 #Reload and pipe data to useable format
@@ -41,10 +41,32 @@ aov_flatn<-aov(δ15N ~ Spp,
                data=fishsource.new[fishsource.new$group=='Flatfish',])
 summary(aov_flatn)
 TukeyHSD(aov_flatn)
+#Check on FishBase...
 #We can union LRD and Lemon sole!!
+#And none of the other flatties. Sad!
 
-aov(~
-  fishsource.new$δ13C[fishsource.new$Spp=='Common Dab'])
+#Scorpionfish
+aov_scorpc<-aov(δ13C ~ Spp,
+               data=fishsource.new[fishsource.new$group=='Scorpionfish',])
+summary(aov_scorpc)
+TukeyHSD(aov_scorpc)
+
+aov_scorpn<-aov(δ15N ~ Spp,
+                data=fishsource.new[fishsource.new$group=='Scorpionfish',])
+summary(aov_scorpn)
+TukeyHSD(aov_scorpn)
+#Can union Red and Grey gurnard!!
+
+#Trisopterus
+aov_tric<-aov(δ13C ~ Spp,
+                data=fishsource.new[fishsource.new$group=='Trisopterus',])
+summary(aov_tric)
+TukeyHSD(aov_tric)
+
+aov_trin<-aov(δ15N ~ Spp,
+              data=fishsource.new[fishsource.new$group=='Trisopterus',])
+summary(aov_trin)
+TukeyHSD(aov_trin)
 
   
 a <-ggplot(fishsource.new)+
@@ -89,10 +111,3 @@ ggplot()+
                          y = δ15N..air,
                          col=Species))+
   scale_color_manual(values = c('#7b3294','#008837'))
-
-
-
-
-
-
-

@@ -1,7 +1,7 @@
 ##Use librarian or pacman on startup to manage all packages 
 ##Figure out how to use a package on startup
 library(librarian)
-shelf(MixSIAR,SIBER,here,tidyverse,ggplot2,rjags,ellipse,coda,readxl)
+shelf(MixSIAR,SIBER,here,tidyverse,ggplot2,rjags,ellipse,coda,readxl,patchwork)
 
 #Read in the data
 sidat<-read.csv(here('Processed Data/Seal_Data.csv'),head=T)
@@ -27,18 +27,29 @@ sidatgrey<-subset(sidat[sidat$Species=='Grey',])
 
 #Transform the data to SIBERdat, data that matches SIBER's expected format:
 siberdat<-subset(sidat, select = c(δ15N..air, δ13C...V.PDB, Species, Type))
-siberdat_H_P <- sidat[sidat$Species == 'Harbor' & sidat$Type == 'Plasma',]%>%
-  subset(select = c(δ15N..air, δ13C...V.PDB, Species, Type))
 
-colnames(siberdat)<-c('iso2','iso1','group','community')
-siberdat<-siberdat[,c(2,1,3,4)]%>%
+#Rename the columns so SIBER doesn't cry
+colnames(siberdat)<-c('iso2','iso1','community','group')
+siberdat<-siberdat[,c(2,1,4,3)]%>%
+  createSiberObject()
+
+colnames(siberdatp)<-c('iso2','iso1','community','group')
+siberdatp<-siberdatp[,c(2,1,4,3)]%>%
+  createSiberObject()
+
+colnames(siberdatRBC)<-c('iso2','iso1','group','community')
+siberdatRBC<-siberdatRBC[,c(2,1,4,4)]%>%
   createSiberObject()
 
 ##Redoing the SIBER stuff with the ggplot syntax from https://github.com/AndrewLJackson/SIBER/blob/306aa9dc922b9c73dc8223f423e667f11fad844a/vignettes/Plot-posterior-ellipses.R
 #Summary stats (TA, SEA and SEAc) for each group
 group.ML <- groupMetricsML(siberdat)#
-
+community.ML <- communityMetricsML(siberdat)
 write.csv(group.ML,file='Seal sample Layman metrics.csv')
+
+group.MLP <- groupMetricsML(siberdatp)
+community.MLP <- communityMetricsML(siberdatp)%>%
+  data.frame()
 # options for running jags
 parms <- list()
 parms$n.iter <- 1000000   # number of iterations to run the model for
@@ -63,6 +74,21 @@ ellipses.posterior <- siberMVN(siberdat, parms, priors)
 # The posterior estimates of the ellipses for each group can be used to
 # calculate the SEA.B for each group.
 SEA.B <- siberEllipses(ellipses.posterior)
+
+#DevinCode go big mode
+#Except I'm transposing it here
+mu_post <- extractPosteriorMeans(siberdat, ellipses.posterior)
+###mu.post[[a]][b,c,d] *************************************
+#where a is community (1 = Plasma 2 = RBC)
+#b = row, c = isotope (1 = d13C, 2 = d15N),
+#and d = individual seal 
+#so mu.post[[1]][,2,] will give posteriors for all seal plasma d15N
+
+layman.B <- bayesianLayman(mu_post)
+#In this case, layman.B is a list of all posterior draws for layman metrics 
+#for both communities. so layman.B[[1]] is community 1, layman.B[[2]] is
+#community 2, and so on.
+
 
 gml<-group.ML%>%
   data.frame()%>%
@@ -96,6 +122,9 @@ siberDensityPlot(SEA.B, xticklabels = colnames(group.ML),
                  las = 1,
                  main = "SIBER ellipses on each group"
 )
+
+bquote('x axis'~(ring(A)^2))
+
 
 SEA.B<-SEA.B%>%
   data.frame()
@@ -160,82 +189,3 @@ for (i in 1:length(ellipses.posterior_H_P)){
   ell$rep <- post.id
   all_ellipses[[i]] <- ell
 }
-
-ellipse_df_H_P <- bind_rows(all_ellipses, .id = "id")
-
-# extract them from the ellipses.posterior list
-group_comm_names_HP <- names(ellipses.posterior_H_P)[as.numeric(ellipse_df_H_P$id)]
-
-split_group_comm_HP <- matrix(unlist(strsplit(group_comm_names_HP, "[.]")),
-                           nrow(ellipse_df_H_P), 2, byrow = TRUE)
-
-ellipse_df_H_P$community <- split_group_comm_HP[,1]
-ellipse_df_H_P$group     <- split_group_comm_HP[,2]
-
-ellipse_df_H_P <- dplyr::rename(ellipse_df_H_P, iso1 = x, iso2 = y)
-
-#Begin plotting the SIBER data with each ellipse drawn
-#I'm doing this for harbor plasma atm\
-##MCP ... maybe? 
-hull_HP <- sidat %>%
-  group_by(Species) %>% 
-  slice(chull(δ13C...V.PDB, δ15N..air))
-
-ggplot(data = sidat[sidat$Species=='Harbor' & sidat$Type=='Plasma',], aes(δ13C...V.PDB, δ15N..air)) +
-  geom_point(aes(color = factor(Species):factor(Type)), size = 2)+
-  ylab(expression(paste(delta^{15}, "N (\u2030)")))+
-  xlab(expression(paste(delta^{13}, "C (\u2030)"))) + 
-  theme(text = element_text(size=15))+
-  theme_minimal() + #Optionally, facet wrap them
-  #facet_wrap(~factor(Species):factor(Type))+
-  geom_polygon(data = ellipse_df_H_P,
-               mapping = aes(iso1, iso2,
-                             color = factor(group):factor(community),
-                             fill = NULL),
-               fill = NA,
-               alpha = 0.2)+
-  geom_polygon(data=hull, aes(alpha = 0.5))+
-  guides(color=guide_legend(title='Species:Sample Type'))
-  
-
-  #Now do it but make it look pretty (These ellispes are normally distributed and thus not a 100% 
-#reflection of our ellipses, but they'll give us a nice idea and look spicyyyyyy)
-#This manipulates ellipse size
-p.ell <- 0.95
-
-ggplot(data = sidat, 
-       aes(x = δ13C...V.PDB, 
-           y = δ15N..air)) + 
-  geom_point(aes(color = Species), size = 3,alpha=0.75) +
-  scale_color_manual(values = c('#7b3294','#008837'))+
-  ylab(expression(paste(delta^{15}, "N (\u2030)"))) +
-  xlab(expression(paste(delta^{13}, "C (\u2030)"))) + 
-  theme(text = element_text(size=16))+
-  stat_ellipse(aes(group = interaction(Species, Type), 
-                   fill = Species, 
-                   color = Species),
-               linetype = 2,
-               alpha = 0.5, 
-               level = p.ell,
-               type = "norm",
-               geom = "polygon")+
-  scale_fill_manual(values = c('#c2a5cf','#a6dba0'))+
-  theme_minimal()+
-  #geom_polygon(data=hull , aes(fill = Species, lty=Type, alpha = 0.5))+
-  facet_wrap(~Type)
-##ANOVA the d13C and d15N
-onewayC_P<-aov(δ13C...V.PDB~Species,data=sidatP)
-
-onewayC_RBC<-aov(δ13C...V.PDB~Species,data=sidatRBC)
-
-onewayN_P<-aov(δ15N..air~Species,data=sidatP)
-
-onewayN_RBC<-aov(δ15N..air~Species,data=sidatRBC)
-
-onewayC_harb<-aov(δ13C...V.PDB~(Type),data=sidatharb)
-
-onewayC_grey<-aov(δ13C...V.PDB~(Type),data=sidatgrey)
-
-onewayN_harb<-aov(δ15N..air~(Type),data=sidatharb)
-
-onewayN_grey<-aov(δ15N..air~(Type),data=sidatgrey)
