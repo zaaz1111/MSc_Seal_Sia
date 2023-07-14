@@ -2,7 +2,10 @@ harbor_priors <- c(
   Argentine_g <- 31.4,
   Bluemouth_g <- 0,
   Cod_g <- 23.9,
+  Common_Dab<- 1.3,
   Flatfish_g <- 1.3,
+  Lemon_Sole <- 1.3,
+  Sandeel <- 23.7,
   Scorpionfish_g <- 0,
   Squid <- 0.9,
   Trisopterus_g <- 8.6)
