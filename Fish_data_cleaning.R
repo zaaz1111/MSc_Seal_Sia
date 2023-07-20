@@ -16,7 +16,7 @@ fishsourcecomp <- merge(fishsourcec,fishsourcen,by='name')%>%
 write.csv(fishsourcecomp,file='Composite_source_data.csv')
 ###Add in sandeel by hand
 ####Silly stupid dumb fish re-cleaning hehe xD
-Flatfish <- c('Lemon Sole', 'Long Rough Dab')
+Flatfish <- c('Lemon Sole', 'Long Rough Dab','Common Dab')
 Scorpionfish <- c('Red Gurnard','Grey Gurnard')
 Trisopterus <- c('Blue Whiting','Norway Pout','Poor Cod')
 #Reload and pipe data to useable format
@@ -31,42 +31,48 @@ fishsource.new <- read.csv(here('Processed data/Composite_source_data.csv'))%>%
 write.csv(fishsource.new,file='idfkanymore..csv')
 
 
-###Unioning Fish
-aov_flatc<-aov(δ13C ~ Spp,
-               data=fishsource.new[fishsource.new$group=='Flatfish',])
-summary(aov_flatc)
-TukeyHSD(aov_flatc)
+unique(fishsource.new$group)
+for(i in unique(fishsource.new$group)){
+  #hist(fishsource.new$δ13C[fishsource.new$group==i])
+  hist(fishsource.new$δ15N[fishsource.new$group==i])
+}
 
-aov_flatn<-aov(δ15N ~ Spp,
+###Unioning Fish
+#Flatfish
+kw_flatc<-kruskal.test(δ13C ~ Spp,
                data=fishsource.new[fishsource.new$group=='Flatfish',])
-summary(aov_flatn)
-TukeyHSD(aov_flatn)
+kw_flatc
+
+kw_flatn<-kruskal.test(δ15N ~ Spp,
+               data=fishsource.new[fishsource.new$group=='Flatfish',])
+kw_flatn
 #Check on FishBase...
-#We can union LRD and Lemon sole!!
-#And none of the other flatties. Sad!
+#We can union LRD and Lemon sole, and Common Dab
+
 
 #Scorpionfish
-aov_scorpc<-aov(δ13C ~ Spp,
+kw_scorpc<-kruskal.test(δ13C ~ Spp,
                data=fishsource.new[fishsource.new$group=='Scorpionfish',])
-summary(aov_scorpc)
-TukeyHSD(aov_scorpc)
+kw_scorpc
 
-aov_scorpn<-aov(δ15N ~ Spp,
+kw_scorpn<-kruskal.test(δ15N ~ Spp,
                 data=fishsource.new[fishsource.new$group=='Scorpionfish',])
-summary(aov_scorpn)
-TukeyHSD(aov_scorpn)
+kw_scorpn
 #Can union Red and Grey gurnard!!
+#But NOT Bluemouth
 
 #Trisopterus
-aov_tric<-aov(δ13C ~ Spp,
+kw_tric<-kruskal.test(δ13C ~ Spp,
                 data=fishsource.new[fishsource.new$group=='Trisopterus',])
-summary(aov_tric)
-TukeyHSD(aov_tric)
+kw_tric
 
-aov_trin<-aov(δ15N ~ Spp,
+kw_trin<-kruskal.test(δ15N ~ Spp,
               data=fishsource.new[fishsource.new$group=='Trisopterus',])
-summary(aov_trin)
-TukeyHSD(aov_trin)
+kw_trin
+###Unioning Blue Whiting, Poor Cod, and Norway Pout
+#It's shaky
+
+
 
   
 a <-ggplot(fishsource.new)+
@@ -78,6 +84,18 @@ b <- ggplot(fishsource.new)+
   theme_minimal()
 
 a+b
+
+
+c <- ggplot(fishsource.new)+
+  geom_boxplot(aes(y=δ13C,fill=group))+
+  theme_minimal()
+
+d <- ggplot(fishsource.new)+
+  geom_boxplot(aes(y=δ15N,fill=group))+
+  theme_minimal()
+
+(a+b)/(c+d)
+
 
 ###Fish Isospace Plotting
 sbs <- read.csv(here('Processed data/Composite_source_data.csv'))%>%

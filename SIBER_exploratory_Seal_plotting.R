@@ -152,40 +152,27 @@ f<-rep('Grey | RBC',6000)
 g<-rep('Harbor | RBC',6000)
 m<-c(sillygoose,e,f,g)
 
-# how many of the posterior draws do you want?
-n.posts <- 20
+ggplot(data = sidat, aes(x = δ13C...V.PDB, y = δ15N..air)) + 
+  geom_point(aes(color = Species, shape = Type), size = 2) +
+  ylab(expression(paste(delta^{15}, "N (\u2030)"))) +
+  xlab(expression(paste(delta^{13}, "C (\u2030)"))) + 
+  theme(text = element_text(size=16)) + 
+  stat_ellipse(aes(Species = interaction(Species, Type), 
+                   fill = Species, 
+                   color = Species), 
+               alpha = 0.25, 
+               level = p.ell,
+               type = "norm",
+               geom = "polygon") + 
+  theme_minimal()+
+  facet_wrap(~Type)
+ 
+#Calculate overlap:
+overlap_p <- maxLikOverlap('1.1', '1.2', siberdat, p = 0.95)
 
-# decide how big an ellipse you want to draw
-p.ell <- 0.95
+st<-Sys.time()
+bayes_overlap_p <- bayesianOverlap(1.1,2.1,ellipses.posterior,draws=10,n=360)
+et <- Sys.time()
+et-st
 
-# a list to store the results
-all_ellipses <- list()
-
-# loop over groups
-for (i in 1:length(ellipses.posterior_H_P)){
-  
-  # a dummy variable to build in the loop
-  ell <- NULL
-  post.id <- NULL
-  
-  for ( j in 1:n.posts){
-    
-    # covariance matrix
-    Sigma  <- matrix(ellipses.posterior_H_P[[i]][j,1:4], 2, 2)
-    
-    # mean
-    mu     <- ellipses.posterior_H_P[[i]][j,5:6]
-    
-    # ellipse points
-    
-    out <- ellipse::ellipse(Sigma, centre = mu , level = p.ell)
-    
-    
-    ell <- rbind(ell, out)
-    post.id <- c(post.id, rep(j, nrow(out)))
-    
-  }
-  ell <- as.data.frame(ell)
-  ell$rep <- post.id
-  all_ellipses[[i]] <- ell
-}
+bayes_overlap_r <- bayesianOverlap(1.2,2.2,ellipses.posterior,draws=10,n=360)
