@@ -72,7 +72,9 @@ kw_trin
 ###Unioning Blue Whiting, Poor Cod, and Norway Pout
 #It's shaky
 
-
+ggplot(mergedfish)+
+  geom_boxplot(aes(x=Spp,y=δ13C,fill=Lipid.Extracted.))+
+  theme_minimal()
 
   
 a <-ggplot(fishsource.new)+
@@ -97,35 +99,121 @@ d <- ggplot(fishsource.new)+
 (a+b)/(c+d)
 
 
-###Fish Isospace Plotting
-sbs <- read.csv(here('Processed data/Composite_source_data.csv'))%>%
-  group_by(Spp)%>%
-  summarize(count = n(),
+###Fish Isospace Plotting: make a grouped dataframe (this will help with creating our errorbars)
+sbs <- read.csv(here('idfkanymore..csv'))%>%
+  group_by(group)%>%
+  summarize(count = n(),      
             mC = mean(δ13C),
             sdC= sd(δ13C),
             mN = mean(δ15N), 
             sdN = sd(δ15N))
 
+#Add in tdf data (adjusting the means and SDs one by one using mutate)
+r_tdfs <- read.csv(here('Processed data/Semi_smart_Seal_RBC_TDFS.csv'))
+p_tdfs <- read.csv(here('Processed data/Semi_smart_Seal_Plasma_TDFS.csv'))
 
-ggplot()+
+#Create the sbs corrected with tdfs
+sbs<-sbs%>%
+  mutate(mCr = mC + r_tdfs$Meand13c,
+         sdCr = sdC + r_tdfs$SDd13c,
+         mNr = mN + r_tdfs$Meand15n,
+         sdNr = sdN + r_tdfs$SDd15n,
+         mCp = mC + p_tdfs$Meand13c,
+         sdCp = sdC + p_tdfs$SDd13c,
+         mNp = mN + p_tdfs$Meand15n,
+         sdNp = sdN + p_tdfs$SDd15n)
+
+#Custom plot limits so we don't drop data
+xlims <- c(-15,-20.5,-14,-20,-20,-16)
+ylims<- c(8.5,16,10,17,7,13)
+
+#Custom color palette from cooler (thanks Emily!!), and based on The Life Aquatic poster
+fish_pal <- c('#B3D4E3','#729CAB','#306372','#8FA15A','#EEDE41','#B2A23B','#756534','#8C462F','#A22729')
+
+#Plasma isospace plot
+isospaceplot_p <- ggplot()+
   geom_errorbar(data = sbs, 
-                mapping = aes(x = mC, y = mN,
-                              ymin = mN - 1.96*sdN, 
-                              ymax = mN + 1.96*sdN), 
-                width = 0)+
+                mapping = aes(x = mCp, y = mNp,
+                              ymin = mNp - 1.96*sdNp, 
+                              ymax = mNp + 1.96*sdNp,
+                              color = group), 
+                width = 0.2)+
   geom_errorbarh(data = sbs, 
-                 mapping = aes(x = mC, y = mN,
-                               xmin = mC - 1.96*sdC,
-                               xmax = mC + 1.96*sdC),
-                 height = 0) + 
-  geom_point(data = sbs, aes(x = mC, 
-                             y = mN,
-                             fill = Spp),
-             color = "black", shape = 22, size = 5,
-             alpha = 0.7, show.legend = T) + 
-  scale_fill_viridis_d()+
+                 mapping = aes(x = mCp, y = mNp,
+                               xmin = mCp - 1.96*sdCp,
+                               xmax = mCp + 1.96*sdCp,
+                               color = group),
+                 height = 0.2) + 
+  geom_point(data = sbs, aes(x = mCp, 
+                             y = mNp,
+                             col = group), 
+             shape = 19, size = 5,
+             alpha = 0.7, show.legend = F) + 
+  scale_fill_manual(values = fish_pal)+
+  geom_point(data=fishsource.new, aes(x = δ13C,
+                                      y = δ15N,
+                                      color = group), alpha = 0.5)+
+  scale_color_manual(values = fish_pal, name = 'Prey Group')+
+  guides(color=guide_legend(override.aes = list(alpha = 1)))+
   theme_minimal()+
+  ggnewscale::new_scale_color()+
   geom_point(data=sidatP, aes(x = δ13C...V.PDB,
+                              y = δ15N..air,
+                              col=Species), shape = 17, size = 3, alpha = 0.8, show.legend = F)+
+  scale_color_manual(values = c('#7b3294','#008837'))+
+  xlim(values=c(min(xlims),max(xlims)))+
+  ylim(values=c(min(ylims),max(ylims)))+
+  ylab(NULL) +
+  xlab(NULL) + 
+  theme(axis.line = element_line(colour = 'black', linewidth = 1, lineend = 'square'),
+        panel.grid = element_blank())+
+  ggtitle('Plasma')
+
+isospaceplot_rbc <- ggplot()+
+  geom_errorbar(data = sbs, 
+                mapping = aes(x = mCr, y = mNr,
+                              ymin = mNr - 1.96*sdNr, 
+                              ymax = mNr + 1.96*sdNr,
+                              color = group), 
+                width = 0.2, show.legend = F)+
+  geom_errorbarh(data = sbs, 
+                 mapping = aes(x = mCr, y = mNr,
+                               xmin = mCr - 1.96*sdCr,
+                               xmax = mCr + 1.96*sdCr,
+                               color = group),
+                 height = 0.2, show.legend = F) + 
+  geom_point(data = sbs, aes(x = mCr, 
+                             y = mNr,
+                             color = group), 
+             shape = 19, size = 5,
+             alpha = 0.7, show.legend = F) + 
+  geom_point(data=fishsource.new, aes(x = δ13C,
+                                      y = δ15N,
+                                      color = group), alpha = 0.5, show.legend = F)+
+  scale_fill_manual(values = fish_pal)+
+  scale_color_manual(values = fish_pal)+
+  ggnewscale::new_scale_color()+
+  theme_minimal()+
+  geom_point(data=sidatRBC, aes(x = δ13C...V.PDB,
                          y = δ15N..air,
-                         col=Species))+
-  scale_color_manual(values = c('#7b3294','#008837'))
+                         col=Species), shape = 17, size = 3, alpha = 0.8)+
+  scale_color_manual(values = c('#7b3294','#008837'), name = 'Seal Species')+
+  ylab(NULL) +
+  xlab(expression(paste(delta^{13}, "C (\u2030)"))) + 
+  xlim(values=c(min(xlims),max(xlims)))+
+  ylim(values=c(min(ylims),max(ylims)))+
+  theme(axis.line = element_line(colour = 'black', linewidth = 1, lineend = 'square'),
+    panel.grid = element_blank())+
+  ggtitle('RBC')
+
+#Make it look sexy in patchwork
+isopatch <- isospaceplot_p/isospaceplot_rbc +
+  plot_layout(guides = 'collect')
+
+wrap_elements(isopatch) +
+  labs(tag = expression(paste(delta^{15}, "N (\u2030)"))) +
+  theme(
+    plot.tag = element_text(size = rel(1), angle = 90),
+    plot.tag.position = "left"
+  )
+

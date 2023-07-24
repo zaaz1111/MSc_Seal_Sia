@@ -47,9 +47,7 @@ group.ML <- groupMetricsML(siberdat)#
 community.ML <- communityMetricsML(siberdat)
 write.csv(group.ML,file='Seal sample Layman metrics.csv')
 
-group.MLP <- groupMetricsML(siberdatp)
-community.MLP <- communityMetricsML(siberdatp)%>%
-  data.frame()
+
 # options for running jags
 parms <- list()
 parms$n.iter <- 1000000   # number of iterations to run the model for
@@ -89,6 +87,9 @@ layman.B <- bayesianLayman(mu_post)
 #for both communities. so layman.B[[1]] is community 1, layman.B[[2]] is
 #community 2, and so on.
 
+#Make a dataframe of the group metrics plus the mean of SEAb posterior density
+SEA.B<-SEA.B%>%
+  data.frame()
 
 gml<-group.ML%>%
   data.frame()%>%
@@ -123,16 +124,21 @@ siberDensityPlot(SEA.B, xticklabels = colnames(group.ML),
                  main = "SIBER ellipses on each group"
 )
 
-bquote('x axis'~(ring(A)^2))
+#Cute little dataframe to ggplot above
+sea_dumyframe <- data.frame(c(SEA.B[,1],SEA.B[,2],SEA.B[,3],SEA.B[,4]))%>%
+  cbind(m)
+colnames(sea_dumyframe)<-c('z','m')
+sillygoose <- rep('Grey | Plasma ',6000)
+e<-rep('Harbor | Plasma ',6000)
+f<-rep('Grey | RBC',6000)
+g<-rep('Harbor | RBC',6000)
+m<-c(sillygoose,e,f,g)
 
-
-SEA.B<-SEA.B%>%
-  data.frame()
-
+#Same thing with violins in ggplot
 ggplot(sea_dumyframe)+
-  geom_violin(aes(x=factor(m),y=z,fill=factor(m)))+
+  geom_violin(aes(x=factor(m),y=z,fill=factor(m)),col='black')+
   geom_boxplot(width=0.1, outlier.shape=NA, aes(x=factor(m),y=z,fill=factor(m)))+
-  scale_fill_manual(values=scheme1 ,guide_legend(title='Species | Sample Type'))+
+  scale_fill_manual(values=scheme1 ,guide_legend(title='Sample Type | Species'))+
   ylab(expression("Standard Ellipse Area " ('\u2030' ^2) ))+
   xlab(NULL)+
   theme_minimal()
@@ -143,17 +149,10 @@ scheme3 <- c('#dfc27d','#a6611a','#80cdc1','#018571')
 scheme4 <- c('#92c5de','#0571b0','#f4a582','#ca0020')
   
 
-sea_dumyframe <- data.frame(c(SEA.B[,1],SEA.B[,2],SEA.B[,3],SEA.B[,4]))%>%
-  cbind(m)
-colnames(sea_dumyframe)<-c('z','m')
-sillygoose <- rep('Grey | Plasma ',6000)
-e<-rep('Harbor | Plasma ',6000)
-f<-rep('Grey | RBC',6000)
-g<-rep('Harbor | RBC',6000)
-m<-c(sillygoose,e,f,g)
 
+#Plot the 95%CI ellipses
 ggplot(data = sidat, aes(x = δ13C...V.PDB, y = δ15N..air)) + 
-  geom_point(aes(color = Species, shape = Type), size = 2) +
+  geom_point(aes(color = Species, shape = Species), size = 2) +
   ylab(expression(paste(delta^{15}, "N (\u2030)"))) +
   xlab(expression(paste(delta^{13}, "C (\u2030)"))) + 
   theme(text = element_text(size=16)) + 
@@ -164,9 +163,17 @@ ggplot(data = sidat, aes(x = δ13C...V.PDB, y = δ15N..air)) +
                level = p.ell,
                type = "norm",
                geom = "polygon") + 
+  scale_fill_manual(values=c('#008837','#7b3294'))+
+  scale_color_manual(values=c('#008837','#7b3294'))+
+  ylim(values=c(11,16))+
+  xlim(values=c(-20.5,-16))+
+  facet_wrap(~Type, scales = 'free')+
   theme_minimal()+
-  facet_wrap(~Type)
- 
+  theme(strip.text.x = element_text(size = 15),
+        axis.line = element_line(colour = 'black', linewidth = 1, lineend = 'square'),
+        panel.grid = element_blank())
+  
+
 #Calculate overlap:
 overlap_p <- maxLikOverlap('1.1', '1.2', siberdat, p = 0.95)
 
