@@ -114,7 +114,7 @@ par(mfrow=c(3,2))
 gelman.plot(output, auto.layout = FALSE)
 par(mfrow=c(1,1))
 
-
+geweke.plot(output)
 # I think (?) this is the distribution of ellipse areas from the MCMCs??
 siberDensityPlot(SEA.B, xticklabels = colnames(group.ML), 
                  xlab = c("Community | Group"),
