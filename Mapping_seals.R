@@ -40,7 +40,7 @@ guplot <- ggplot()+
 oplot <- ggplot()+
   geom_sf(data=uk, col='black',fill = 'black')+
   geom_spatraster(data=overlap)+
-  scale_fill_hypso_c(pal='nordisk-familjebok_hypso',guide=NULL)+
+  scale_fill_hypso_d(pal='nordisk-familjebok_hypso',guide=NULL)+
   ggtitle('Harbour/Grey Seal Overlap')+
   theme_minimal()
 

@@ -175,7 +175,14 @@ ggplot(data = sidat, aes(x = δ13C...V.PDB, y = δ15N..air)) +
   
 
 #Calculate overlap:
-overlap_p <- maxLikOverlap('1.1', '1.2', siberdat, p = 0.95)
+overlap_p <- maxLikOverlap("1.1", "1.2", siberdat, p = 0.95)
+
+siber.example <- createSiberObject(demo.siber.data) 
+ellipse1 <- "1.2" 
+ellipse2 <- "1.3"
+ellipse95.overlap <- maxLikOverlap(ellipse1, ellipse2, siber.example,p.interval = 0.95, n = 100)
+                                   
+
 
 st<-Sys.time()
 bayes_overlap_p <- bayesianOverlap(1.1,2.1,ellipses.posterior,draws=10,n=360)

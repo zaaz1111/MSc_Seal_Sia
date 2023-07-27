@@ -17,14 +17,14 @@ write.csv(fishsourcecomp,file='Composite_source_data.csv')
 ###Add in sandeel by hand
 ####Silly stupid dumb fish re-cleaning hehe xD
 Flatfish <- c('Lemon Sole', 'Long Rough Dab','Common Dab')
-Scorpionfish <- c('Red Gurnard','Grey Gurnard')
-Trisopterus <- c('Blue Whiting','Norway Pout','Poor Cod')
+Scorpionfish <- c('Red Gurnard','Grey Gurnard','Squid')
+Small_Benthics <- c('Blue Whiting','Norway Pout','Poor Cod')
 #Reload and pipe data to useable format
 fishsource.new <- read.csv(here('Processed data/Composite_source_data.csv'))%>%
   mutate(group = case_when(
     fishsource.new$Spp %in% Flatfish ~ 'Flatfish',
     fishsource.new$Spp %in% Scorpionfish ~ 'Scorpionfish',
-    fishsource.new$Spp %in% Trisopterus ~ 'Trisopterus',
+    fishsource.new$Spp %in% Small_Benthics ~ 'Small Benthics',
     TRUE ~ fishsource.new$Spp
   ))
 
@@ -50,6 +50,15 @@ kw_flatn
 #We can union LRD and Lemon sole, and Common Dab
 
 
+kw_bc <- kruskal.test(δ13C ~ Spp,
+               data=fishsource.new[fishsource.new$group=='Small Benthics',])
+
+kw_bc
+
+kw_bn <- kruskal.test(δ15N ~ Spp,
+                        data=fishsource.new[fishsource.new$group=='Small Benthics',])
+
+kw_bn
 #Scorpionfish
 kw_scorpc<-kruskal.test(δ13C ~ Spp,
                data=fishsource.new[fishsource.new$group=='Scorpionfish',])
@@ -90,13 +99,15 @@ a+b
 
 c <- ggplot(fishsource.new)+
   geom_boxplot(aes(y=δ13C,fill=group))+
+  scale_fill_manual(values=fish_pal)+
   theme_minimal()
 
 d <- ggplot(fishsource.new)+
   geom_boxplot(aes(y=δ15N,fill=group))+
+  scale_fill_manual(values=fish_pal)+
   theme_minimal()
 
-(a+b)/(c+d)
+(c+d)
 
 
 ###Fish Isospace Plotting: make a grouped dataframe (this will help with creating our errorbars)
