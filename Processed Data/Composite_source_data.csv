@@ -68,5 +68,7 @@ FS7,Long Rough Dab,-18.3434834,9.069478396
 FS70,Squid,-17.81,11.01
 FS8,Common Dab,-17.75948859,10.92712744
 FS9,Grey Gurnard,-17.76,10.83361096
-AMTF,Sandeel,-17.238,8.3
-AMSB,Sandeel,-17.812,7.9
+AMTF,Benthic Sandeel*,-16.9,8.3
+AMSB,Benthic Sandeel*,-17.5,7.9
+AMK1,Pelagic Sandeel*,-22.6,9.8
+AMK2,Pelagic Sandeel*,-19.1,10.1

@@ -1,5 +1,5 @@
 library(librarian)
-shelf(MixSIAR,SIBER,here,tidyverse,ggplot2,rjags,ellipse,readxl,beepr,colorspace)
+shelf(MixSIAR,SIBER,here,tidyverse,ggplot2,rjags,ellipse,readxl,beepr,colorspace,SuessR)
 
 #Load in the Consumer mixing data
 mix_grey_RBC <- load_mix_data(filename = here('Processed Data/consumer_grey_RBC.csv'),

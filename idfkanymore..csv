@@ -1,72 +1,74 @@
-"","name","Spp","δ13C","δ15N","group"
-"1","FS1","Common Dab",-17.11499648,9.989380489,"Flatfish"
-"2","FS10","Grey Gurnard",-17.77063322,11.02301968,"Scorpionfish"
-"3","FS11","Grey Gurnard",-18.30113345,10.71447535,"Scorpionfish"
-"4","FS12","Common Dab",-17.22,10.1627027,"Flatfish"
-"5","FS13","Long Rough Dab",-16.74,9.730036466,"Flatfish"
-"6","FS14","Long Rough Dab",-18.0121647,9.033032436,"Flatfish"
-"7","FS15","Squid",-18.08133756,10.8758121,"Squid"
-"8","FS16","Squid",-19.12,11.54705434,"Squid"
-"9","FS17","Plaice",-17.4145324,10.94,"Plaice"
-"10","FS18","Plaice",-16.96318024,11.24,"Plaice"
-"11","FS19","Plaice",-17.24411833,9.63,"Plaice"
-"12","FS2","Squid",-17.92,11.44993083,"Squid"
-"13","FS20","Lemon Sole",-18.04773258,9.99,"Flatfish"
-"14","FS21","Norway Pout",-17.83239535,9.04,"Small Benthics"
-"15","FS22","Red Gurnard",-17.92059283,9.659242639,"Scorpionfish"
-"16","FS23","Bluemouth",-19.80228722,11.71,"Bluemouth"
-"17","FS24","Bluemouth",-17.889717,11.62,"Bluemouth"
-"18","FS25","Blue Whiting",-19.30704968,9.29,"Small Benthics"
-"19","FS26","Bluemouth",-18.15107842,11.62757955,"Bluemouth"
-"20","FS27","Plaice",-17.08441573,9.89,"Plaice"
-"21","FS28","Red Gurnard",-18.22477642,11.38898676,"Scorpionfish"
-"22","FS29","Blue Whiting",-19.08385735,10.76356026,"Small Benthics"
-"23","FS3","Argentine",-17.44205446,11.20628884,"Pelagics"
-"24","FS30","Blue Whiting",-19.10954299,8.629290307,"Small Benthics"
-"25","FS31","Norway Pout",-19.63518334,10.38,"Small Benthics"
-"26","FS32","Lemon Sole",-18.83204332,9.59,"Flatfish"
-"27","FS33","Plaice",-17.41108158,11.69,"Plaice"
-"28","FS34","Lemon Sole",-18.45121396,9.56,"Flatfish"
-"29","FS35","Red Gurnard",-18.35843899,10.88,"Scorpionfish"
-"30","FS36","Plaice",-17.77574262,11.29,"Plaice"
-"31","FS37","Common Dab",-18.0276749,9.89,"Flatfish"
-"32","FS38","Grey Gurnard",-18.60181676,10.71,"Scorpionfish"
-"33","FS39","Grey Gurnard",-18.105484,10.47,"Scorpionfish"
-"34","FS4","Argentine",-16.93078349,11.84356841,"Pelagics"
-"35","FS40","Grey Gurnard",-18.25957351,10.96,"Scorpionfish"
-"36","FS41","Common Dab",-17.22793036,10.07,"Flatfish"
-"37","FS42","Common Dab",-17.58340534,9.93,"Flatfish"
-"38","FS43","Norway Pout",-19.96932278,9.97,"Small Benthics"
-"39","FS44","Common Dab",-18.17401248,9.56,"Flatfish"
-"40","FS45","Common Dab",-17.56793607,10.1,"Flatfish"
-"41","FS46","Common Dab",-18.53459207,9.91,"Flatfish"
-"42","FS47","Argentine",-17.8000028,11.34,"Pelagics"
-"43","FS48","Argentine",-17.5914362,11.06,"Pelagics"
-"44","FS49","Poor Cod",-19.20362927,10.89,"Small Benthics"
-"45","FS50","Common Dab",-16.9503964,10.88,"Flatfish"
-"46","FS51","Poor Cod",-18.5900314,10.39,"Small Benthics"
-"47","FS52","Cod",-17.66443437,11.36,"Pelagics"
-"48","FS53","Common Dab",-17.55495719,10.33,"Flatfish"
-"49","FS54","Norway Pout",-18.5197391,9.93,"Small Benthics"
-"50","FS55","Poor Cod",-17.59427448,11.44,"Small Benthics"
-"51","FS56","Common Dab",-17.16046232,10.1,"Flatfish"
-"52","FS57","Cod",-16.83314968,12.23,"Pelagics"
-"53","FS58","Common Dab",-17.47638176,9.5,"Flatfish"
-"54","FS59","Argentine",-16.94902095,11.26,"Pelagics"
-"55","FS6","Argentine",-17.36,11.87115367,"Pelagics"
-"56","FS60","Grey Gurnard",-18.09,10.13,"Scorpionfish"
-"57","FS61","Cod",-17.12,11.23,"Pelagics"
-"58","FS62","Common Dab",-17.36,9.67,"Flatfish"
-"59","FS63","Common Dab",-16.85,8.79,"Flatfish"
-"60","FS64","Grey Gurnard",-18.71,10.68,"Scorpionfish"
-"61","FS65","Grey Gurnard",-17.87,10.83,"Scorpionfish"
-"62","FS66","Norway Pout",-19.18,10.11,"Small Benthics"
-"63","FS67","Norway Pout",-17.86,9.55,"Small Benthics"
-"64","FS68","Squid",-18.01,9.54,"Squid"
-"65","FS69","Squid",-17.97,11.32,"Squid"
-"66","FS7","Long Rough Dab",-18.3434834,9.069478396,"Flatfish"
-"67","FS70","Squid",-17.81,11.01,"Squid"
-"68","FS8","Common Dab",-17.75948859,10.92712744,"Flatfish"
-"69","FS9","Grey Gurnard",-17.76,10.83361096,"Scorpionfish"
-"70","AMTF","Sandeel",-16.227,8.3,"Sandeel"
-"71","AMSB","Sandeel",-16.812,7.9,"Sandeel"
+"","name","Spp","δ13C","δ15N"
+"1","FS1","Common Dab",-17.11499648,9.989380489
+"2","FS10","Grey Gurnard",-17.77063322,11.02301968
+"3","FS11","Grey Gurnard",-18.30113345,10.71447535
+"4","FS12","Common Dab",-17.22,10.1627027
+"5","FS13","Long Rough Dab",-16.74,9.730036466
+"6","FS14","Long Rough Dab",-18.0121647,9.033032436
+"7","FS15","Squid",-18.08133756,10.8758121
+"8","FS16","Squid",-19.12,11.54705434
+"9","FS17","Plaice",-17.4145324,10.94
+"10","FS18","Plaice",-16.96318024,11.24
+"11","FS19","Plaice",-17.24411833,9.63
+"12","FS2","Squid",-17.92,11.44993083
+"13","FS20","Lemon Sole",-18.04773258,9.99
+"14","FS21","Norway Pout",-17.83239535,9.04
+"15","FS22","Red Gurnard",-17.92059283,9.659242639
+"16","FS23","Bluemouth",-19.80228722,11.71
+"17","FS24","Bluemouth",-17.889717,11.62
+"18","FS25","Blue Whiting",-19.30704968,9.29
+"19","FS26","Bluemouth",-18.15107842,11.62757955
+"20","FS27","Plaice",-17.08441573,9.89
+"21","FS28","Red Gurnard",-18.22477642,11.38898676
+"22","FS29","Blue Whiting",-19.08385735,10.76356026
+"23","FS3","Argentine",-17.44205446,11.20628884
+"24","FS30","Blue Whiting",-19.10954299,8.629290307
+"25","FS31","Norway Pout",-19.63518334,10.38
+"26","FS32","Lemon Sole",-18.83204332,9.59
+"27","FS33","Plaice",-17.41108158,11.69
+"28","FS34","Lemon Sole",-18.45121396,9.56
+"29","FS35","Red Gurnard",-18.35843899,10.88
+"30","FS36","Plaice",-17.77574262,11.29
+"31","FS37","Common Dab",-18.0276749,9.89
+"32","FS38","Grey Gurnard",-18.60181676,10.71
+"33","FS39","Grey Gurnard",-18.105484,10.47
+"34","FS4","Argentine",-16.93078349,11.84356841
+"35","FS40","Grey Gurnard",-18.25957351,10.96
+"36","FS41","Common Dab",-17.22793036,10.07
+"37","FS42","Common Dab",-17.58340534,9.93
+"38","FS43","Norway Pout",-19.96932278,9.97
+"39","FS44","Common Dab",-18.17401248,9.56
+"40","FS45","Common Dab",-17.56793607,10.1
+"41","FS46","Common Dab",-18.53459207,9.91
+"42","FS47","Argentine",-17.8000028,11.34
+"43","FS48","Argentine",-17.5914362,11.06
+"44","FS49","Poor Cod",-19.20362927,10.89
+"45","FS50","Common Dab",-16.9503964,10.88
+"46","FS51","Poor Cod",-18.5900314,10.39
+"47","FS52","Cod",-17.66443437,11.36
+"48","FS53","Common Dab",-17.55495719,10.33
+"49","FS54","Norway Pout",-18.5197391,9.93
+"50","FS55","Poor Cod",-17.59427448,11.44
+"51","FS56","Common Dab",-17.16046232,10.1
+"52","FS57","Cod",-16.83314968,12.23
+"53","FS58","Common Dab",-17.47638176,9.5
+"54","FS59","Argentine",-16.94902095,11.26
+"55","FS6","Argentine",-17.36,11.87115367
+"56","FS60","Grey Gurnard",-18.09,10.13
+"57","FS61","Cod",-17.12,11.23
+"58","FS62","Common Dab",-17.36,9.67
+"59","FS63","Common Dab",-16.85,8.79
+"60","FS64","Grey Gurnard",-18.71,10.68
+"61","FS65","Grey Gurnard",-17.87,10.83
+"62","FS66","Norway Pout",-19.18,10.11
+"63","FS67","Norway Pout",-17.86,9.55
+"64","FS68","Squid",-18.01,9.54
+"65","FS69","Squid",-17.97,11.32
+"66","FS7","Long Rough Dab",-18.3434834,9.069478396
+"67","FS70","Squid",-17.81,11.01
+"68","FS8","Common Dab",-17.75948859,10.92712744
+"69","FS9","Grey Gurnard",-17.76,10.83361096
+"70","AMTF","Benthic Sandeel*",-16.227,8.3
+"71","AMSB","Benthic Sandeel*",-16.812,7.9
+"72","AMK1","Pelagic Sandeel*",-21.728,9.8
+"73","AMK2","Pelagic Sandeel*",-18.228,10.1

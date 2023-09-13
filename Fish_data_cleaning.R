@@ -1,34 +1,106 @@
-fish.samples <- read.csv(here('fish.samples.csv'))%>%
+fish.samples <- read.csv(here('fish.samples.csv'))#%>%
   dplyr::select(name:Scientific.Name)
 fish.data <- read.csv(here('Processed Data/fish.samples.final.csv'))
 mergedfish <- merge(fish.samples,fish.data)
-#Make a dataframe with the N from lipid rich samples, and the C from Lipid Extracted samples
-fishsourcec <- subset(mergedfish,mergedfish$Lipid.Extracted.,
-                      select=c(name,Spp,δ13C))#%>%
-fishsourcec <- mutate(fishsourcec,name = substr(fishsourcec$name,1,nchar(fishsourcec$name)-2))
 
-fishsourcen<-subset(mergedfish,!mergedfish$Lipid.Extracted.,
-                    select=c(name,δ15N))
+#Ungrouped fish with Suess-corrected sandeel
+fishsource.ungrouped <- read.csv(here('Processed data/Composite_source_data.csv'))
+sandy <- fishsource.ungrouped[70:73,]
+colnames(sandy) <- c('id','spp','d13c','nitrogen')
+sandy <- mutate(sandy,
+                year = c(1995,1996,2005,2005),
+                region= c("Subpolar North Atlantic","Subpolar North Atlantic",
+                          "Subpolar North Atlantic","Subpolar North Atlantic"))%>%
+  subset(select=c(id,d13c,year,region))
+suesssandy <- SuessR(sandy)
+fishsource.ungrouped$δ13C[70:73] <- suesssandy$d13c.cor
 
-fishsourcecomp <- merge(fishsourcec,fishsourcen,by='name')%>%
-  subset(fishsourcecomp$δ15N>0)
+write.csv(fishsource.ungrouped,file='ungrouped_source_data.csv')
 
-write.csv(fishsourcecomp,file='Composite_source_data.csv')
-###Add in sandeel by hand
+
 ####Silly stupid dumb fish re-cleaning hehe xD
 Flatfish <- c('Lemon Sole', 'Long Rough Dab','Common Dab')
-Scorpionfish <- c('Red Gurnard','Grey Gurnard','Squid')
+Scorpionfish <- c('Red Gurnard','Grey Gurnard')
 Small_Benthics <- c('Blue Whiting','Norway Pout','Poor Cod')
+Pelagics <- c('Cod', 'Argentine')
 #Reload and pipe data to useable format
 fishsource.new <- read.csv(here('Processed data/Composite_source_data.csv'))%>%
   mutate(group = case_when(
     fishsource.new$Spp %in% Flatfish ~ 'Flatfish',
     fishsource.new$Spp %in% Scorpionfish ~ 'Scorpionfish',
     fishsource.new$Spp %in% Small_Benthics ~ 'Small Benthics',
+    fishsource.new$Spp %in% Pelagics ~ 'Pelagics',
     TRUE ~ fishsource.new$Spp
   ))
 
-write.csv(fishsource.new,file='idfkanymore..csv')
+  #Suess correction for sandeel
+sandy <- fishsource.new[70:nrow(fishsource.new),]
+colnames(sandy) <- c('id','spp','d13c','nitrogen','group')
+sandy <- mutate(sandy,
+                year = c(1995,1996,2005,2005),
+                region= c("Subpolar North Atlantic","Subpolar North Atlantic","Subpolar North Atlantic","Subpolar North Atlantic"))%>%
+  subset(select=c(id,d13c,year,region))
+suesssandy <- SuessR(sandy)
+fishsource.new$δ13C[70:nrow(fishsource.new)] <- suesssandy$d13c.cor
+
+write.csv(fishsource.new,file='grouped_fish_sources.csv')
+
+subtract_grey_rbc <- c('Benthic Sandeel*','Flatfish')
+fishsource.new.grey.rbc <- fishsource.new %>%
+  mutate(group = case_when(
+    fishsource.new$group %in% subtract_grey_rbc ~ NA,
+    TRUE ~ fishsource.new$group
+  ))%>%
+  na.omit()
+  
+write.csv(fishsource.new.grey.rbc,file='fishsources_subracted_grey_rbc.csv')
+
+subtract_harbor_rbc <- c('Benthic Sandeel*','Flatfish','Small Benthics')
+fishsource.new.harbor.rbc <- fishsource.new %>%
+  mutate(group = case_when(
+    fishsource.new$group %in% subtract_harbor_rbc ~ NA,
+    TRUE ~ fishsource.new$group
+  ))%>%
+  na.omit()
+
+write.csv(fishsource.new.harbor.rbc,file='fishsources_subracted_harbor_rbc.csv')
+
+
+
+subtract_grey_plasma <- c('Benthic Sandeel*')
+fishsource.new.grey.plasma <- fishsource.new %>%
+  mutate(group = case_when(
+    fishsource.new$group %in% subtract_grey_plasma ~ NA,
+    TRUE ~ fishsource.new$group
+  ))%>%
+  na.omit()
+
+write.csv(fishsource.new.grey.plasma,file='fishsources_subracted_grey_plasma.csv')
+
+
+subtract_harbor_rbc <- c('Benthic Sandeel*','Flatfish','Small Benthics')
+fishsource.new.harbor.rbc <- fishsource.new %>%
+  mutate(group = case_when(
+    fishsource.new$group %in% subtract_harbor_rbc ~ NA,
+    TRUE ~ fishsource.new$group
+  ))%>%
+  na.omit()
+
+write.csv(fishsource.new.harbor.rbc,file='fishsources_subracted_harbor_rbc.csv')
+
+
+#Harbor Plasma
+subtract_harbor_plasma <- c('Benthic Sandeel*')
+fishsource.new.grey.plasma <- fishsource.new %>%
+  mutate(group = case_when(
+    fishsource.new$group %in% subtract_harbor_plasma ~ NA,
+    TRUE ~ fishsource.new$group
+  ))%>%
+  na.omit()
+
+write.csv(fishsource.new.grey.plasma,file='fishsources_subracted_harbor_plasma.csv')
+
+
 
 
 unique(fishsource.new$group)
@@ -69,17 +141,18 @@ kw_scorpn<-kruskal.test(δ15N ~ Spp,
 kw_scorpn
 #Can union Red and Grey gurnard!!
 #But NOT Bluemouth
+#Squid also fit in this group, weirdly
 
-#Trisopterus
-kw_tric<-kruskal.test(δ13C ~ Spp,
-                data=fishsource.new[fishsource.new$group=='Trisopterus',])
-kw_tric
+kw_pc <- kruskal.test(δ13C ~ Spp,
+                      data=fishsource.new[fishsource.new$group=='Pelagics',])
+kw_pc
 
-kw_trin<-kruskal.test(δ15N ~ Spp,
-              data=fishsource.new[fishsource.new$group=='Trisopterus',])
-kw_trin
-###Unioning Blue Whiting, Poor Cod, and Norway Pout
-#It's shaky
+kw_pn <- kruskal.test(δ15N ~ Spp,
+                      data=fishsource.new[fishsource.new$group=='Pelagics',])
+kw_pn
+#Cod and Argentine are isotopically similar
+
+
 
 ggplot(mergedfish)+
   geom_boxplot(aes(x=Spp,y=δ13C,fill=Lipid.Extracted.))+
@@ -111,18 +184,22 @@ d <- ggplot(fishsource.new)+
 
 
 ###Fish Isospace Plotting: make a grouped dataframe (this will help with creating our errorbars)
-sbs <- read.csv(here('idfkanymore..csv'))%>%
-  group_by(group)%>%
+sbs <- fishsource.new%>%
+  group_by(Spp)%>%
   summarize(count = n(),      
             mC = mean(δ13C),
             sdC= sd(δ13C),
             mN = mean(δ15N), 
             sdN = sd(δ15N))
+sbs$sdC[sbs$Spp=='Pelagic Sandeel*']<-0.5
+sbs$sdN[sbs$Spp=='Pelagic Sandeel*']<-0.45
 
 #Add in tdf data (adjusting the means and SDs one by one using mutate)
-r_tdfs <- read.csv(here('Processed data/Semi_smart_Seal_RBC_TDFS.csv'))
-p_tdfs <- read.csv(here('Processed data/Semi_smart_Seal_Plasma_TDFS.csv'))
+r_tdfs <- read.csv(here('Processed data/Seal_RBC_TDFS_ungrouped.csv'))
+p_tdfs <- read.csv(here('Processed data/Seal_Plasma_TDFS_ungrouped.csv'))
 
+p_tdfs_grouped <- read.csv(here('Processed data/Seal_Plasma_TDFs_grouped.csv'))
+r_tdfs_grouped <- read.csv(here('Processed data/Seal_RBC_TDFs_grouped.csv'))
 #Create the sbs corrected with tdfs
 sbs<-sbs%>%
   mutate(mCr = mC + r_tdfs$Meand13c,
@@ -134,12 +211,13 @@ sbs<-sbs%>%
          mNp = mN + p_tdfs$Meand15n,
          sdNp = sdN + p_tdfs$SDd15n)
 
+
 #Custom plot limits so we don't drop data
 xlims <- c(-15,-20.5,-14,-20,-20,-16)
 ylims<- c(8.5,16,10,17,7,13)
 
 #Custom color palette from cooler (thanks Emily!!), and based on The Life Aquatic poster
-fish_pal <- c('#B3D4E3','#729CAB','#306372','#8FA15A','#EEDE41','#B2A23B','#756534','#8C462F','#A22729')
+fish_pal <- c('#007289','#2B8AA1','#55A1B8','#A9D0E7','#BDD8AE','#D0DF74','#F6ED00','#EDB505','#E37C09','#CF0A11','#A12F09','#8A4105','#735300','purple','cyan','orange')
 
 #Plasma isospace plot
 isospaceplot_p <- ggplot()+
